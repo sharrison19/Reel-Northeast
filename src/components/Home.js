@@ -1,5 +1,4 @@
 import React from "react";
-import pondview from "../images/pondview.jpg";
 
 const Home = () => {
   return (

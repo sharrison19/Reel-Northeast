@@ -42,7 +42,7 @@ nav {
 }
 
 .nav-item {
-  margin-right: 20px;
+  margin: 0 25px;
 }
 
 .nav-item:last-child {
@@ -113,3 +113,313 @@ nav {
 .get-started-btn:hover {
   background-color: #002c6d;
 }
+
+/*About Page Start */
+
+.about-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.about-title {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.about-paragraph {
+  font-size: 18px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.about-paragraph:last-child {
+  margin-bottom: 0;
+}
+
+.about-image {
+  width: 300px;
+  height: auto;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/*About Page End */
+
+/*Species Page Start */
+
+.species-card {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid black;
+  font-size: 15px;
+  text-align: center;
+  margin: 10px;
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.card-text {
+  font-size: 15px;
+}
+
+.card-container {
+  width: 100%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.card-img-top {
+  width: 100%;
+  height: 400px;
+}
+
+.species-page-header {
+  margin: 20px 0 20px 20px;
+}
+
+.species-select {
+  margin: 0 0 20px 20px;
+  height: 40px;
+  width: 200px;
+  font-size: 16px;
+  border: 2px solid #555;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: #fff;
+  color: #333;
+}
+
+.species-select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px #007bff;
+}
+
+/*Species Page End */
+
+/*Forum Page Start */
+/* Forum Container */
+.forum-page {
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Buttons */
+.create-a-thread-btn {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+/* Input */
+.search {
+  padding: 10px;
+  width: 200px;
+  margin-bottom: 10px;
+}
+
+/* Thread Section */
+
+.filter {
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+.filter-option {
+  padding: 5px;
+}
+
+.threads {
+  margin-top: 20px;
+}
+
+.thread {
+  background-color: #f4f4f4;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.thread-title {
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.thread-content {
+  margin-bottom: 10px;
+}
+
+.thread-author {
+  color: #666;
+  font-size: 12px;
+}
+
+/* Categories Section */
+
+.categories-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.category-item {
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.columns {
+  display: flex;
+  clear: both;
+}
+
+.left-column {
+  margin: 0 30px;
+}
+
+.thread-btn-container {
+  float: left;
+  margin: 0 30px;
+}
+
+.search-container {
+  float: right;
+  margin: 0 30px;
+}
+
+.threads-header {
+  display: flex;
+  align-items: center;
+}
+
+.filter {
+  width: 150px;
+  height: 42px;
+  margin: 0 0 0 20px;
+}
+/*Forum Page End */
+
+/*Signup Page Start */
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.signup-form label {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.signup-form input {
+  padding: 8px;
+  margin-bottom: 15px;
+  width: 250px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.signup-form button {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.signup-form button:hover {
+  background-color: #45a049;
+}
+
+/*Signup Page End */
+
+/*Login Page Start */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.login-form label {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.login-form input {
+  padding: 8px;
+  margin-bottom: 15px;
+  width: 250px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.login-form button {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.login-form button:hover {
+  background-color: #45a049;
+}
+
+/*Login Page End */
+
+/*States Page Start */
+.states-container {
+  margin: 20px;
+}
+
+.states-container p {
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.states-container p:first-child {
+  font-weight: bold;
+}
+
+.states-container p:last-child {
+  margin-bottom: 0;
+}
+
+.states-container .description {
+  background-color: #f8f8f8;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.states-container .description p {
+  margin-bottom: 15px;
+}
+
+.states-container .description p:first-child {
+  margin-top: 0;
+}
+
+.states-container .description p:last-child {
+  margin-bottom: 0;
+}
+
+.states-container .description div {
+  margin-top: 20px;
+}
+
+.states-container .description div p {
+  margin-bottom: 0;
+}
+
+/*States Page End */

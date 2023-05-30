@@ -1,12 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
+import CreateThread from "./CreateThread";
+import { useNavigate } from "react-router-dom";
 
 const Forum = () => {
+  const navigate = useNavigate();
+  const handleThread = (thread) => {
+    return () => {
+      navigate("/thread", { state: thread });
+    };
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [threads, setThreads] = useState([]);
+
+  const handleThreadSubmit = (newThread) => {
+    // Add the new thread to the list of threads
+    setThreads([...threads, newThread]);
+  };
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
   return (
     <div className="forum-page">
       <div className="top-row">
         <div className="thread-btn-container">
-          <button className="create-a-thread-btn">Create a thread</button>
+          <button className="create-a-thread-btn" onClick={handleOpenModal}>
+            Create a thread
+          </button>
         </div>
+        {isModalOpen && (
+          <CreateThread
+            onThreadSubmit={handleThreadSubmit}
+            onClose={handleCloseModal}
+          />
+        )}
         <div className="search-container">
           <input placeholder="Search" className="search"></input>
         </div>
@@ -43,6 +75,19 @@ const Forum = () => {
           </div>
 
           <div className="threads">
+            {threads.map((thread, index) => (
+              <div
+                onClick={handleThread(thread)}
+                className="thread"
+                key={index}
+              >
+                <h2 className="thread-title">{thread.title}</h2>
+                <p className="thread-content">{thread.content}</p>
+                <p className="thread-author">Posted By: {thread.author}</p>
+                {console.log(thread.date)}
+                <p className="thread-date">Date: {thread.date}</p>
+              </div>
+            ))}
             <div className="thread">
               <h2 className="thread-title">Best Lure for Bass Fishing?</h2>
               <p className="thread-content">
@@ -51,6 +96,7 @@ const Forum = () => {
                 freshwater lakes and rivers. Thanks!
               </p>
               <p className="thread-author">Posted by: Angler123</p>
+              <p className="thread-date">Date: May 26, 2023</p>
             </div>
 
             <div className="thread">

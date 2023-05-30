@@ -9,6 +9,8 @@ import About from "./components/About";
 import States from "./components/States";
 import Connect from "./components/Connect";
 import Forum from "./components/Forum";
+import Thread from "./components/Thread";
+import State from "./components/State";
 
 const App = () => {
   return (
@@ -24,6 +26,8 @@ const App = () => {
         <Route path="/connect" element={<Connect />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/thread" element={<Thread />} />
+        <Route path="/state/:id" element={<State states={states} />} />
       </Routes>
     </div>
   );

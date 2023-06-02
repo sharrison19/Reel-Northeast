@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -18,7 +19,9 @@ const Home = () => {
         fishing enthusiasts, and discover the best spots to reel in your next
         big catch.
       </p>
-      <button className="get-started-btn">Get Started</button>
+      <Link to="/signup">
+        <button className="get-started-btn">Get Started</button>
+      </Link>
     </div>
   );
 };

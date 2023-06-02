@@ -11,7 +11,32 @@ const Forum = () => {
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [threads, setThreads] = useState([]);
+  const [threads, setThreads] = useState([
+    {
+      title: "Best Lure for Bass Fishing?",
+      content:
+        "I've been trying to catch some bass lately, and I'm wondering what lure works best. Any recommendations? I usually fish in freshwater lakes and rivers. Thanks!",
+      author: "Angler123",
+      date: "March 30, 2023",
+      comments: [],
+    },
+    {
+      title: "Tips for Fly Fishing Beginners",
+      content:
+        "I'm new to fly fishing and looking for some tips to get started. What are the essential gear and techniques I should know? Any advice would be greatly appreciated!",
+      author: "FlyFisher22",
+      date: "March 25, 2023",
+      comments: [],
+    },
+    {
+      title: "Share Your Biggest Catch!",
+      content:
+        "    Let's see who caught the biggest fish! Share a photo of your biggest catch and tell us the story behind it. I'll start with mine, a massive 30-pound striped bass I caught off the coast of Maine last summer. Can't wait to see your impressive catches!",
+      author: "BigFisherman",
+      date: "March 20, 2023",
+      comments: [{ author: "Jim", content: "Hello", date: "April 1, 2023" }],
+    },
+  ]);
 
   const handleThreadSubmit = (newThread) => {
     // Add the new thread to the list of threads
@@ -51,6 +76,17 @@ const Forum = () => {
               <li className="category-item">Fly Fishing</li>
               <li className="category-item">Freshwater Fishing</li>
               <li className="category-item">Saltwater Fishing</li>
+              <li className="category-item">Bass Fishing</li>
+              <li className="category-item">Trout Fishing</li>
+              <li className="category-item">Deep Sea Fishing</li>
+              <li className="category-item">Ice Fishing</li>
+              <li className="category-item">Kayak Fishing</li>
+              <li className="category-item">Surf Casting Fishing</li>
+              <li className="category-item">Bait and Tackle</li>
+              <li className="category-item">Fishing Gear</li>
+              <li className="category-item">Fishing Reports</li>
+              <li className="category-item">Fishing Tips and Tricks</li>
+              <li className="category-item">Fishing Conservation</li>
             </ul>
           </div>
         </div>
@@ -88,37 +124,6 @@ const Forum = () => {
                 <p className="thread-date">Date: {thread.date}</p>
               </div>
             ))}
-            <div className="thread">
-              <h2 className="thread-title">Best Lure for Bass Fishing?</h2>
-              <p className="thread-content">
-                I've been trying to catch some bass lately, and I'm wondering
-                what lure works best. Any recommendations? I usually fish in
-                freshwater lakes and rivers. Thanks!
-              </p>
-              <p className="thread-author">Posted by: Angler123</p>
-              <p className="thread-date">Date: May 26, 2023</p>
-            </div>
-
-            <div className="thread">
-              <h2 className="thread-title">Tips for Fly Fishing Beginners</h2>
-              <p className="thread-content">
-                I'm new to fly fishing and looking for some tips to get started.
-                What are the essential gear and techniques I should know? Any
-                advice would be greatly appreciated!
-              </p>
-              <p className="thread-author">Posted by: FlyFisher22</p>
-            </div>
-
-            <div className="thread">
-              <h2 className="thread-title">Share Your Biggest Catch!</h2>
-              <p className="thread-content">
-                Let's see who caught the biggest fish! Share a photo of your
-                biggest catch and tell us the story behind it. I'll start with
-                mine, a massive 30-pound striped bass I caught off the coast of
-                Maine last summer. Can't wait to see your impressive catches!
-              </p>
-              <p className="thread-author">Posted by: BigFisherman</p>
-            </div>
           </div>
         </div>
       </div>

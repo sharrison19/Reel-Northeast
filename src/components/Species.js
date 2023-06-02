@@ -3,10 +3,11 @@ import { Card } from "react-bootstrap";
 
 const Species = () => {
   const [selectedSpeciesCategory, setSelectedSpeciesCategory] = useState("all");
-
+  const [showBack, setShowBack] = useState(false);
   const handleSpeciesCategoryChange = (category) => {
     setSelectedSpeciesCategory(category);
   };
+
   const fishSpecies = [
     {
       name: "Striped Bass",
@@ -220,6 +221,20 @@ const Species = () => {
     },
   ];
 
+  const handleFlipFront = (e) => {
+    e.currentTarget.classList.toggle("hidden");
+    e.currentTarget.nextSibling.classList.toggle("displayed");
+
+    setShowBack(!showBack);
+  };
+
+  const handleFlipBack = (e) => {
+    e.currentTarget.classList.toggle("displayed");
+    e.currentTarget.previousSibling.classList.toggle("hidden");
+
+    setShowBack(!showBack);
+  };
+
   const filteredFishSpecies =
     selectedSpeciesCategory === "all"
       ? fishSpecies
@@ -244,11 +259,22 @@ const Species = () => {
       <div className="card-container">
         {filteredFishSpecies.map((species) => (
           <Card key={species.name} className="species-card">
-            <Card.Img variant="top" src={species.image} alt={species.name} />
-            <Card.Body>
+            <div className="cardFront" onClick={handleFlipFront}>
               <Card.Title>{species.name}</Card.Title>
-              <Card.Text>{species.description}</Card.Text>
-            </Card.Body>
+              <Card.Body>
+                <Card.Img
+                  variant="top"
+                  src={species.image}
+                  alt={species.name}
+                />
+              </Card.Body>
+            </div>
+            <div className="cardBack" onClick={handleFlipBack}>
+              <Card.Title>{species.name}</Card.Title>
+              <Card.Body>
+                <Card.Text>{species.description}</Card.Text>
+              </Card.Body>
+            </div>
           </Card>
         ))}
       </div>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const CreateComment = ({ onCommentSubmit }) => {
-  const [author, setAuthor] = useState("");
+  const [author, setAuthor] = useState("YourUser123");
   const [content, setContent] = useState("");
 
   const handleSubmit = (e) => {
@@ -35,23 +35,8 @@ const CreateComment = ({ onCommentSubmit }) => {
     <form className="create-comment-form" onSubmit={handleSubmit}>
       <h4 className="create-comment-header">Create a Comment</h4>
       <div className="create-comment-form-group">
-        <label className="create-comment-author" htmlFor="author">
-          Author:
-        </label>
-        <input
-          cclassName="create-comment-author-input"
-          type="text"
-          id="author"
-          value={author}
-          onChange={(e) => setAuthor(e.target.value)}
-        />
-      </div>
-      <div className="create-comment-form-group">
-        <label className="create-comment-content-label" htmlFor="content">
-          Content:
-        </label>
         <textarea
-          className="create-comment-conent"
+          className="create-comment-content"
           id="content"
           value={content}
           onChange={(e) => setContent(e.target.value)}

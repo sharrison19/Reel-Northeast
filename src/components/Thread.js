@@ -6,12 +6,12 @@ const Thread = ({ thread }) => {
   const location = useLocation();
   const { title, author, content, date, comments } = location.state;
 
-  const [updatedComments, setUpdatedComment] = useState(comments);
+  const [updatedComments, setUpdatedComments] = useState(comments);
 
   const handleCommentSubmit = (newComment) => {
-    // Add the new comment to the comments array
-    setUpdatedComment([...comments, newComment]);
+    setUpdatedComments((prevComments) => [...prevComments, newComment]);
   };
+
   return (
     <div className="thread">
       <h3 className="thread-title">{title}</h3>
@@ -22,7 +22,7 @@ const Thread = ({ thread }) => {
       <p className="thread-content">{content}</p>
       <CreateComment onCommentSubmit={handleCommentSubmit} />
       <div className="thread-comments">
-        <h4>Comments ({comments.length})</h4>
+        <h4>Comments ({updatedComments.length})</h4>
         {updatedComments.length > 0 ? (
           <ul>
             {updatedComments.map((comment, index) => (

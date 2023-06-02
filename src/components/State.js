@@ -6,9 +6,9 @@ const State = ({ states }) => {
   const state = states.find((state) => state.id === id);
 
   return (
-    <div>
-      <h2>{state.name}</h2>
-      {/* Add more details or content for the specific state */}
+    <div className="state-container">
+      <h2 className="state-header">{state.name}</h2>
+      <p className="state-description">{state.description}</p>
     </div>
   );
 };

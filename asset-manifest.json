@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Reel-Northeast/static/css/main.0f7cda0b.css",
-    "main.js": "/Reel-Northeast/static/js/main.1359bfb9.js",
+    "main.js": "/Reel-Northeast/static/js/main.c6899d25.js",
     "static/media/aboutme.jpg": "/Reel-Northeast/static/media/aboutme.ff26a7d8250a461898b5.jpg",
     "static/media/scup.jpg": "/Reel-Northeast/static/media/scup.90f6d230350cd8ed1894.jpg",
     "static/media/sunfish.jpg": "/Reel-Northeast/static/media/sunfish.7ceb3cd9070572909596.jpg",
@@ -50,10 +50,10 @@
     "static/media/logo.jpg": "/Reel-Northeast/static/media/logo.a0c45da8b33187dcb91a.jpg",
     "index.html": "/Reel-Northeast/index.html",
     "main.0f7cda0b.css.map": "/Reel-Northeast/static/css/main.0f7cda0b.css.map",
-    "main.1359bfb9.js.map": "/Reel-Northeast/static/js/main.1359bfb9.js.map"
+    "main.c6899d25.js.map": "/Reel-Northeast/static/js/main.c6899d25.js.map"
   },
   "entrypoints": [
     "static/css/main.0f7cda0b.css",
-    "static/js/main.1359bfb9.js"
+    "static/js/main.c6899d25.js"
   ]
 }

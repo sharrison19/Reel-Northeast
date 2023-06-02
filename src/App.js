@@ -538,6 +538,7 @@ const App = () => {
       <Header />
       <Navbar />
       <Routes>
+        <Route path="/Reel-Northeast" element={<Home />} />
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/forum" element={<Forum />} />

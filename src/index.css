@@ -15,10 +15,12 @@ header {
   background-color: #1a75ff;
 }
 
-.title {
+.home-title {
   font-size: 24px;
   color: #ffffff;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  text-decoration: none;
+  font-weight: bolder;
 }
 
 .logo {
@@ -499,6 +501,10 @@ nav {
 
 /* Login Page Start */
 .login-form-wrapper {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 100px 0;
   background-image: url("images/loginbackground.jpg");
   background-size: cover;
@@ -509,8 +515,8 @@ nav {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: auto;
   max-width: 600px;
+  margin: auto;
   border: 1px solid black;
   background-color: rgba(255, 255, 255, 0.8);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -568,7 +574,6 @@ nav {
 .login-form button:active {
   background-color: #ff5500;
 }
-
 /*Login Page End */
 
 /*States Page Start */

@@ -2,14 +2,13 @@ import React, { useState } from "react";
 
 const CreateThread = ({ onThreadSubmit, onClose }) => {
   const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
   const [content, setContent] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     // Validate input fields
-    if (!title || !author || !content) {
+    if (!title || !content) {
       alert("Please fill in all the fields");
       return;
     }
@@ -20,7 +19,7 @@ const CreateThread = ({ onThreadSubmit, onClose }) => {
     // Create new thread object
     const newThread = {
       title,
-      author,
+      author: "NEFisherman123", // Set the username here
       content,
       date: formattedDate,
       comments: [],
@@ -32,7 +31,6 @@ const CreateThread = ({ onThreadSubmit, onClose }) => {
 
     // Clear input fields
     setTitle("");
-    setAuthor("");
     setContent("");
 
     // Close the modal
@@ -43,6 +41,9 @@ const CreateThread = ({ onThreadSubmit, onClose }) => {
     <div className="modal">
       <div className="modal-content">
         <h2>Create a New Thread</h2>
+        <button className="close-button" onClick={onClose}>
+          X
+        </button>
         <form className="new-thread-form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="title">Title:</label>
@@ -51,15 +52,6 @@ const CreateThread = ({ onThreadSubmit, onClose }) => {
               id="title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="author">Author:</label>
-            <input
-              type="text"
-              id="author"
-              value={author}
-              onChange={(e) => setAuthor(e.target.value)}
             />
           </div>
           <div className="form-group">

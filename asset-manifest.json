@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Reel-Northeast/static/css/main.e62c21af.css",
-    "main.js": "/Reel-Northeast/static/js/main.ee4255fd.js",
+    "main.css": "/Reel-Northeast/static/css/main.82df6bde.css",
+    "main.js": "/Reel-Northeast/static/js/main.be32ce65.js",
     "static/media/aboutme.jpg": "/Reel-Northeast/static/media/aboutme.ff26a7d8250a461898b5.jpg",
     "static/media/scup.jpg": "/Reel-Northeast/static/media/scup.90f6d230350cd8ed1894.jpg",
     "static/media/sunfish.jpg": "/Reel-Northeast/static/media/sunfish.7ceb3cd9070572909596.jpg",
@@ -49,11 +49,11 @@
     "static/media/newhampshire.jpg": "/Reel-Northeast/static/media/newhampshire.9a7deb000a83fab72de3.jpg",
     "static/media/logo.jpg": "/Reel-Northeast/static/media/logo.a0c45da8b33187dcb91a.jpg",
     "index.html": "/Reel-Northeast/index.html",
-    "main.e62c21af.css.map": "/Reel-Northeast/static/css/main.e62c21af.css.map",
-    "main.ee4255fd.js.map": "/Reel-Northeast/static/js/main.ee4255fd.js.map"
+    "main.82df6bde.css.map": "/Reel-Northeast/static/css/main.82df6bde.css.map",
+    "main.be32ce65.js.map": "/Reel-Northeast/static/js/main.be32ce65.js.map"
   },
   "entrypoints": [
-    "static/css/main.e62c21af.css",
-    "static/js/main.ee4255fd.js"
+    "static/css/main.82df6bde.css",
+    "static/js/main.be32ce65.js"
   ]
 }

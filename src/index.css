@@ -291,6 +291,18 @@ nav {
   color: white;
   border: none;
   cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.create-a-thread-btn:hover {
+  background-color: #45a049;
+}
+
+.create-a-thread-btn:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
 /* Input */
@@ -301,7 +313,6 @@ nav {
 }
 
 /* Thread Section */
-
 .thread {
   margin: 20px;
   padding: 20px;
@@ -318,6 +329,8 @@ nav {
 
 .thread-info {
   margin-bottom: 10px;
+  display: flex;
+  align-items: center;
 }
 
 .thread-author,
@@ -366,8 +379,35 @@ nav {
   color: black;
 }
 
+.search-container {
+  position: relative;
+}
+
+.search {
+  padding: 10px;
+  padding-right: 40px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+.search-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 10px;
+  cursor: pointer;
+  color: #999;
+  font-size: 20px;
+}
+
+.search-icon:hover {
+  color: #333;
+}
+
+/* Add your desired icon styles */
+
 /*Create Thread Section */
-/* Create Thread Section */
 .modal {
   position: fixed;
   top: 0;

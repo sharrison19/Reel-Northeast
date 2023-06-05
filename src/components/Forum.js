@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import CreateThread from "./CreateThread";
 import { useNavigate } from "react-router-dom";
+import { BsSearch } from "react-icons/bs";
 
 const Forum = () => {
   const navigate = useNavigate();
@@ -55,7 +56,7 @@ const Forum = () => {
       <div className="top-row">
         <div className="thread-btn-container">
           <button className="create-a-thread-btn" onClick={handleOpenModal}>
-            Create a thread
+            Create a Thread
           </button>
         </div>
         {isModalOpen && (
@@ -66,6 +67,7 @@ const Forum = () => {
         )}
         <div className="search-container">
           <input placeholder="Search" className="search"></input>
+          <BsSearch className="search-icon" />
         </div>
       </div>
       <div className="columns">

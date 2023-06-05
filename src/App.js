@@ -34,24 +34,19 @@ const App = () => {
             and bluefish to fluke and blackfish, the Sound provides excellent
             angling opportunities for both shore and boat fishing. Anglers can
             target these prized game fish using a variety of techniques such as
-            casting lures, bottom fishing, or trolling.
-          </p>
-          <p>
-            Connecticut's rivers and lakes offer excellent freshwater fishing.
-            The Connecticut River, Housatonic River, and Farmington River are
-            renowned for their populations of trout, including brown trout,
-            rainbow trout, and brook trout. These rivers also support
-            populations of smallmouth bass, largemouth bass, northern pike, and
-            other popular game fish. Anglers can enjoy fly fishing, bait
-            fishing, or using lures to target these species.
-          </p>
-          <p>
-            Connecticut's shoreline towns and harbors provide additional
-            opportunities for anglers. From piers and jetties to coastal marshes
-            and estuaries, these areas offer access to species like striped
-            bass, bluefish, flounder, and scup. Kayak fishing and surfcasting
-            are popular methods employed by anglers to explore these coastal
-            areas.
+            casting lures, bottom fishing, or trolling. Connecticut's rivers and
+            lakes offer excellent freshwater fishing. The Connecticut River,
+            Housatonic River, and Farmington River are renowned for their
+            populations of trout, including brown trout, rainbow trout, and
+            brook trout. These rivers also support populations of smallmouth
+            bass, largemouth bass, northern pike, and other popular game fish.
+            Anglers can enjoy fly fishing, bait fishing, or using lures to
+            target these species. Connecticut's shoreline towns and harbors
+            provide additional opportunities for anglers. From piers and jetties
+            to coastal marshes and estuaries, these areas offer access to
+            species like striped bass, bluefish, flounder, and scup. Kayak
+            fishing and surfcasting are popular methods employed by anglers to
+            explore these coastal areas.
           </p>
           <p>
             To engage in fishing in Connecticut, anglers must possess a valid
@@ -86,23 +81,17 @@ const App = () => {
             mackerel. From the rugged shores of Acadia National Park to the
             charming fishing villages of Portland and Kennebunkport, there are
             ample opportunities for surfcasting, pier fishing, and offshore
-            adventures.
-          </p>
-          <p>
-            Inland, Maine's lakes and rivers are teeming with fish. The state is
-            renowned for its landlocked salmon and brook trout, which attract
-            fly fishermen from around the world. Lakes such as Moosehead,
-            Sebago, and Rangeley offer fantastic fishing for salmon, trout, and
-            smallmouth bass. Anglers can also explore the legendary Penobscot
-            River, known for its trophy-sized smallmouth bass and Atlantic
-            salmon.
-          </p>
-          <p>
-            Ice fishing is a popular winter activity in Maine, with enthusiasts
-            drilling holes in frozen lakes to catch species like lake trout,
-            northern pike, and perch. The state also hosts various fishing
-            derbies and tournaments throughout the year, adding to the
-            excitement for competitive anglers.
+            adventures. Inland, Maine's lakes and rivers are teeming with fish.
+            The state is renowned for its landlocked salmon and brook trout,
+            which attract fly fishermen from around the world. Lakes such as
+            Moosehead, Sebago, and Rangeley offer fantastic fishing for salmon,
+            trout, and smallmouth bass. Anglers can also explore the legendary
+            Penobscot River, known for its trophy-sized smallmouth bass and
+            Atlantic salmon. Ice fishing is a popular winter activity in Maine,
+            with enthusiasts drilling holes in frozen lakes to catch species
+            like lake trout, northern pike, and perch. The state also hosts
+            various fishing derbies and tournaments throughout the year, adding
+            to the excitement for competitive anglers.
           </p>
           <p>
             To fish in Maine, anglers are required to have a valid fishing
@@ -139,20 +128,16 @@ const App = () => {
             From the iconic Cape Cod and Martha's Vineyard to the bustling
             harbors of Boston and Gloucester, there are countless opportunities
             for surfcasting, deep-sea fishing, and charter boat adventures.
-          </p>
-          <p>
             Inland, Massachusetts boasts numerous lakes and ponds that are home
             to bass, trout, panfish, and more. The picturesque Quabbin
             Reservoir, Quaboag Pond, and Wachusett Reservoir are popular
             destinations for freshwater fishing, offering serene surroundings
-            and excellent angling opportunities.
-          </p>
-          <p>
-            Massachusetts is also known for its exceptional fly fishing. The
-            Swift River, Deerfield River, and Westfield River are renowned for
-            their populations of trout, including brown trout, rainbow trout,
-            and brook trout. Anglers can enjoy casting dry flies, nymphs, or
-            streamers in these scenic rivers.
+            and excellent angling opportunities. Massachusetts is also known for
+            its exceptional fly fishing. The Swift River, Deerfield River, and
+            Westfield River are renowned for their populations of trout,
+            including brown trout, rainbow trout, and brook trout. Anglers can
+            enjoy casting dry flies, nymphs, or streamers in these scenic
+            rivers.
           </p>
           <p>
             The state's fishing community is vibrant and welcoming, with fishing
@@ -197,26 +182,21 @@ const App = () => {
             home to various species, including smallmouth bass, largemouth bass,
             trout, salmon, and pickerel. Fishing from a boat, kayak, or even
             from the shore, anglers can enjoy the peaceful surroundings and the
-            thrill of reeling in a trophy catch.
-          </p>
-          <p>
-            The state's rivers, such as the Connecticut River, Merrimack River,
-            and Androscoggin River, offer excellent freshwater fishing
-            opportunities. Anglers can target species like trout, bass, pike,
-            and catfish using various techniques such as fly fishing, bait
-            fishing, or spin fishing. The flowing waters and scenic landscapes
-            make these rivers ideal spots for anglers seeking tranquility and
-            adventure.
-          </p>
-          <p>
-            Along the seacoast, New Hampshire provides access to the Atlantic
-            Ocean, opening up a world of saltwater fishing possibilities.
-            Hampton Harbor, Portsmouth Harbor, and Rye Harbor are popular
-            launching points for anglers targeting species like striped bass,
-            bluefish, cod, and haddock. Whether casting from a pier, chartering
-            a boat, or surfcasting from the sandy beaches, anglers can enjoy the
-            excitement of saltwater fishing and the opportunity to catch some of
-            the region's most prized game fish.
+            thrill of reeling in a trophy catch. The state's rivers, such as the
+            Connecticut River, Merrimack River, and Androscoggin River, offer
+            excellent freshwater fishing opportunities. Anglers can target
+            species like trout, bass, pike, and catfish using various techniques
+            such as fly fishing, bait fishing, or spin fishing. The flowing
+            waters and scenic landscapes make these rivers ideal spots for
+            anglers seeking tranquility and adventure. Along the seacoast, New
+            Hampshire provides access to the Atlantic Ocean, opening up a world
+            of saltwater fishing possibilities. Hampton Harbor, Portsmouth
+            Harbor, and Rye Harbor are popular launching points for anglers
+            targeting species like striped bass, bluefish, cod, and haddock.
+            Whether casting from a pier, chartering a boat, or surfcasting from
+            the sandy beaches, anglers can enjoy the excitement of saltwater
+            fishing and the opportunity to catch some of the region's most
+            prized game fish.
           </p>
           <p>
             New Hampshire's fishing community is active and passionate, with
@@ -263,27 +243,22 @@ const App = () => {
             fishing, jetty fishing, and charter boat trips are popular ways to
             experience the thrill of saltwater angling. Whether casting from the
             beach or venturing offshore, the Atlantic Ocean offers plentiful
-            opportunities for anglers of all skill levels.
-          </p>
-          <p>
-            New Jersey's bays and estuaries, such as Barnegat Bay and Delaware
-            Bay, are teeming with marine life. These habitats are home to
-            species like summer flounder, black drum, tautog, and blue crabs.
-            Anglers can explore the back bays, tidal creeks, and marshes, either
-            by boat or kayak, to target these popular game fish. The state's
-            extensive network of piers and docks also provides convenient access
-            for anglers to cast their lines and reel in a catch.
-          </p>
-          <p>
-            Inland, New Jersey offers numerous rivers, lakes, and reservoirs
-            that cater to freshwater fishing enthusiasts. The Delaware River,
-            Raritan River, and Passaic River are well-known for their
-            populations of trout, bass, walleye, and catfish. The state's
-            reservoirs, such as Round Valley Reservoir and Lake Hopatcong, are
-            prized for their trophy-sized bass and trout. Anglers can enjoy a
-            variety of fishing techniques, including fly fishing, bait fishing,
-            and trolling, while surrounded by the scenic beauty of the Garden
-            State.
+            opportunities for anglers of all skill levels. New Jersey's bays and
+            estuaries, such as Barnegat Bay and Delaware Bay, are teeming with
+            marine life. These habitats are home to species like summer
+            flounder, black drum, tautog, and blue crabs. Anglers can explore
+            the back bays, tidal creeks, and marshes, either by boat or kayak,
+            to target these popular game fish. The state's extensive network of
+            piers and docks also provides convenient access for anglers to cast
+            their lines and reel in a catch. Inland, New Jersey offers numerous
+            rivers, lakes, and reservoirs that cater to freshwater fishing
+            enthusiasts. The Delaware River, Raritan River, and Passaic River
+            are well-known for their populations of trout, bass, walleye, and
+            catfish. The state's reservoirs, such as Round Valley Reservoir and
+            Lake Hopatcong, are prized for their trophy-sized bass and trout.
+            Anglers can enjoy a variety of fishing techniques, including fly
+            fishing, bait fishing, and trolling, while surrounded by the scenic
+            beauty of the Garden State.
           </p>
           <p>
             New Jersey's fishing community is vibrant, with fishing tournaments,
@@ -330,32 +305,24 @@ const App = () => {
             and sea bass, the Atlantic waters surrounding New York are teeming
             with a variety of sought-after game fish. Surfcasting, boat fishing,
             and charter excursions provide thrilling adventures for anglers of
-            all levels.
-          </p>
-          <p>
-            Inland, New York is home to an extensive network of lakes and
-            rivers, including the Great Lakes, Finger Lakes, and the legendary
-            Hudson River. These waterways offer exceptional opportunities for
-            freshwater fishing. Anglers can target species like trout, salmon,
-            bass, walleye, pike, and muskellunge. Fly fishing, trolling, ice
-            fishing, and bank fishing are popular techniques enjoyed by anglers
-            throughout the state.
-          </p>
-          <p>
-            The Catskill Mountains and the Adirondack Park are renowned for
-            their pristine streams and rivers, attracting fly anglers from
-            around the world. These areas provide exceptional trout fishing,
-            with the chance to catch wild and stocked brown trout, rainbow
-            trout, and brook trout. Anglers can immerse themselves in the beauty
-            of the state's natural landscapes while casting their lines in
-            pursuit of these elusive and prized fish.
-          </p>
-          <p>
-            New York's fishing scene is further enhanced by its abundant marine
-            life, including the annual migration of species like striped bass,
-            bluefish, and various types of shark. The state's numerous fishing
-            charters and guides offer opportunities to target these species and
-            experience the thrill of offshore angling.
+            all levels. Inland, New York is home to an extensive network of
+            lakes and rivers, including the Great Lakes, Finger Lakes, and the
+            legendary Hudson River. These waterways offer exceptional
+            opportunities for freshwater fishing. Anglers can target species
+            like trout, salmon, bass, walleye, pike, and muskellunge. Fly
+            fishing, trolling, ice fishing, and bank fishing are popular
+            techniques enjoyed by anglers throughout the state. The Catskill
+            Mountains and the Adirondack Park are renowned for their pristine
+            streams and rivers, attracting fly anglers from around the world.
+            These areas provide exceptional trout fishing, with the chance to
+            catch wild and stocked brown trout, rainbow trout, and brook trout.
+            Anglers can immerse themselves in the beauty of the state's natural
+            landscapes while casting their lines in pursuit of these elusive and
+            prized fish. New York's fishing scene is further enhanced by its
+            abundant marine life, including the annual migration of species like
+            striped bass, bluefish, and various types of shark. The state's
+            numerous fishing charters and guides offer opportunities to target
+            these species and experience the thrill of offshore angling.
           </p>
           <p>
             To engage in fishing in New York, anglers must possess a valid
@@ -394,16 +361,11 @@ const App = () => {
             and rivers stocked with brown, rainbow, and brook trout. The famous
             Lehigh River, Delaware River, and Susquehanna River are popular
             destinations for trout fishing, attracting fly anglers and bait
-            fishermen alike.
-          </p>
-          <p>
-            In addition to trout, Pennsylvania is home to a wide range of game
-            fish species. Anglers can target bass, muskellunge, pike, walleye,
-            catfish, and panfish in the state's lakes and rivers. The legendary
-            Lake Erie and its tributaries offer exceptional smallmouth bass and
-            steelhead trout fishing.
-          </p>
-          <p>
+            fishermen alike. In addition to trout, Pennsylvania is home to a
+            wide range of game fish species. Anglers can target bass,
+            muskellunge, pike, walleye, catfish, and panfish in the state's
+            lakes and rivers. The legendary Lake Erie and its tributaries offer
+            exceptional smallmouth bass and steelhead trout fishing.
             Pennsylvania also boasts a network of state parks and forests,
             providing access to pristine fishing spots and tranquil settings.
             From the picturesque Pocono Mountains to the Allegheny National
@@ -446,20 +408,15 @@ const App = () => {
             striped bass, bluefish, fluke, black sea bass, tautog, and scup. The
             state's many marinas, piers, and rocky shorelines provide ample
             opportunities for shore fishing, while charter boats and party boats
-            offer exciting offshore adventures.
-          </p>
-          <p>
-            Rhode Island is also home to several freshwater lakes, ponds, and
-            rivers, which are stocked with trout and other game fish. Anglers
-            can enjoy freshwater fishing for species like largemouth bass,
-            smallmouth bass, pickerel, and perch. Fly fishing, spinning, and
-            bait fishing are popular techniques used by anglers in the state's
-            freshwater bodies.
-          </p>
-          <p>
-            Additionally, Rhode Island hosts various fishing tournaments,
-            including striped bass tournaments, which attract anglers from near
-            and far to compete for prizes and bragging rights.
+            offer exciting offshore adventures. Rhode Island is also home to
+            several freshwater lakes, ponds, and rivers, which are stocked with
+            trout and other game fish. Anglers can enjoy freshwater fishing for
+            species like largemouth bass, smallmouth bass, pickerel, and perch.
+            Fly fishing, spinning, and bait fishing are popular techniques used
+            by anglers in the state's freshwater bodies. Additionally, Rhode
+            Island hosts various fishing tournaments, including striped bass
+            tournaments, which attract anglers from near and far to compete for
+            prizes and bragging rights.
           </p>
           <p>
             To engage in fishing in Rhode Island, anglers must possess a valid
@@ -497,20 +454,15 @@ const App = () => {
             streams teeming with brown trout, rainbow trout, and brook trout.
             The iconic Battenkill River, Winooski River, and Otter Creek attract
             fly anglers from around the world, who seek the challenge of
-            catching these elusive and prized fish.
-          </p>
-          <p>
-            In addition to trout, Vermont offers excellent fishing for bass,
-            pike, walleye, and panfish in its lakes and reservoirs. Lake
-            Champlain, one of the largest lakes in the country, is particularly
-            famous for its trophy smallmouth bass fishing.
-          </p>
-          <p>
-            Vermont's winter season brings a unique opportunity for ice fishing
-            enthusiasts. Anglers can drill holes on frozen lakes and ponds to
-            catch species like perch, crappie, and northern pike. Ice fishing
-            derbies and events are popular during this time, attracting both
-            locals and visitors.
+            catching these elusive and prized fish. In addition to trout,
+            Vermont offers excellent fishing for bass, pike, walleye, and
+            panfish in its lakes and reservoirs. Lake Champlain, one of the
+            largest lakes in the country, is particularly famous for its trophy
+            smallmouth bass fishing. Vermont's winter season brings a unique
+            opportunity for ice fishing enthusiasts. Anglers can drill holes on
+            frozen lakes and ponds to catch species like perch, crappie, and
+            northern pike. Ice fishing derbies and events are popular during
+            this time, attracting both locals and visitors.
           </p>
           <p>
             To engage in fishing in Vermont, anglers must possess a valid

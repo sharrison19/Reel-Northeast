@@ -790,12 +790,11 @@ textarea#content {
 }
 
 .state-header {
-  font-size: 24px;
+  font-size: 32px;
   margin-bottom: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 32px;
   color: #ffffff;
   background-repeat: no-repeat;
   background-size: cover;
@@ -803,16 +802,65 @@ textarea#content {
   background-image: url("images/statebackground.jpg");
   margin: 0;
   width: 100%;
-  height: 200px;
+  height: 300px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
   text-transform: uppercase;
   letter-spacing: 2px;
 }
 
 .state-description {
-  font-size: 16px;
-  line-height: 1.5;
+  font-size: 18px;
+  line-height: 1.6;
   text-align: center;
+  margin: 20px;
+  color: #555555;
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.state-description p:first-child {
+  margin-top: 0;
+}
+
+.state-description p:last-child {
+  margin-bottom: 0;
+}
+
+.state-description a {
+  color: #ff4a4a;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.state-description a:hover {
+  text-decoration: underline;
+}
+
+.state-thread-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+  list-style: none;
+  padding: 0;
+}
+
+.state-thread-item {
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.state-thread-item h4 {
+  font-size: 18px;
+  margin: 0 0 10px;
+}
+
+.state-thread-item p {
+  font-size: 14px;
+  margin: 0;
 }
 
 /*State Page End */

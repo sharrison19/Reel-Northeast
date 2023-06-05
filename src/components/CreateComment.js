@@ -8,7 +8,7 @@ const CreateComment = ({ onCommentSubmit }) => {
     e.preventDefault();
 
     // Validate input fields
-    if (!author || !content) {
+    if (!content) {
       alert("Please fill in all the fields");
       return;
     }
@@ -26,8 +26,7 @@ const CreateComment = ({ onCommentSubmit }) => {
     // Pass new comment to parent component
     onCommentSubmit(newComment);
 
-    // Clear input fields
-    setAuthor("");
+    // Clear input field
     setContent("");
   };
 

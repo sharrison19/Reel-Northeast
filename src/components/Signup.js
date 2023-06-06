@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 const Signup = () => {
   const [firstName, setFirstName] = useState("");
@@ -27,20 +28,33 @@ const Signup = () => {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Perform your signup logic here, such as making an API request
-    // to register the user with the provided data
+    try {
+      // Send a POST request to the server with the user data
+      const response = await axios.post("/signup", {
+        firstName,
+        lastName,
+        email,
+        username,
+        password,
+      });
 
-    // Reset the form after submitting
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-    setUsername("");
-    setPassword("");
+      // Display the success message from the server
+      console.log(response.data.message);
+
+      // Reset the form after successful submission
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setUsername("");
+      setPassword("");
+    } catch (error) {
+      // Display the error message from the server
+      console.error(error.response.data.message);
+    }
   };
-
   return (
     <div className="signup-form-wrapper">
       <div className="signup-content">

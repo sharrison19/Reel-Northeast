@@ -34,7 +34,7 @@ const State = ({ states }) => {
     }, 1000);
 
     return () => clearTimeout(delay);
-  }, []);
+  }, [state.name]);
 
   return (
     <div className="state-container">

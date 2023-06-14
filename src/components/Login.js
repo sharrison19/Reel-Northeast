@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "./AuthContext";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
+  const navigate = useNavigate();
+
+  const auth = useContext(AuthContext);
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -17,15 +22,15 @@ const Login = () => {
     setRememberMe(!rememberMe);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Perform your login logic here, such as making an API request
-    // to authenticate the user with the provided username and password
-
-    // Reset the form after submitting
-    setUsername("");
-    setPassword("");
+    try {
+      auth.handleAuthentication({ username, password });
+      navigate("/forum");
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (

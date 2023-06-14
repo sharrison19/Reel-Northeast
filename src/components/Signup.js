@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState, useContext } from "react";
+import { AuthContext } from "./AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [firstName, setFirstName] = useState("");
@@ -7,6 +8,10 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const auth = useContext(AuthContext);
+  console.log(auth);
 
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value);
@@ -33,7 +38,7 @@ const Signup = () => {
 
     try {
       // Send a POST request to the server with the user data
-      const response = await axios.post("/signup", {
+      auth.handleSignup({
         firstName,
         lastName,
         email,
@@ -41,15 +46,16 @@ const Signup = () => {
         password,
       });
 
-      // Display the success message from the server
-      console.log(response.data.message);
-
       // Reset the form after successful submission
       setFirstName("");
       setLastName("");
       setEmail("");
       setUsername("");
       setPassword("");
+
+      navigate("/forum");
+
+      window.scrollTo(0, 0);
     } catch (error) {
       // Display the error message from the server
       console.error(error.response.data.message);

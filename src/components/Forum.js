@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import CreateThread from "./CreateThread";
 import { useNavigate } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
+import axios from "axios";
 
 const Forum = () => {
   const navigate = useNavigate();
@@ -12,43 +13,11 @@ const Forum = () => {
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [threads, setThreads] = useState([
-    {
-      title: "Best Lure for Bass Fishing?",
-      content:
-        "I've been trying to catch some bass lately, and I'm wondering what lure works best. Any recommendations? I usually fish in freshwater lakes and rivers. Thanks!",
-      author: "Angler123",
-      date: "March 30, 2023",
-      comments: [{ author: "Jim", content: "Hello", date: "April 1, 2023" }],
-      totalComments: 200,
-      totalViews: 200,
-    },
-    {
-      title: "Tips for Fly Fishing Beginners",
-      content:
-        "I'm new to fly fishing and looking for some tips to get started. What are the essential gear and techniques I should know? Any advice would be greatly appreciated!",
-      author: "FlyFisher22",
-      date: "March 25, 2023",
-      comments: [{ author: "Jim", content: "Hello", date: "April 1, 2023" }],
-      totalComments: 100,
-      totalViews: 1000,
-    },
-    {
-      title: "Share Your Biggest Catch!",
-      content:
-        "    Let's see who caught the biggest fish! Share a photo of your biggest catch and tell us the story behind it. I'll start with mine, a massive 30-pound striped bass I caught off the coast of Maine last summer. Can't wait to see your impressive catches!",
-      author: "BigFisherman",
-      date: "June 5, 2023",
-      comments: [{ author: "Jim", content: "Hello", date: "April 1, 2023" }],
-      totalComments: 1,
-      totalViews: 20,
-    },
-  ]);
+  const [threads, setThreads] = useState([]);
 
   const [selectedFilter, setSelectedFilter] = useState("newest");
 
   const handleThreadSubmit = (newThread) => {
-    // Add the new thread to the list of threads
     setThreads([...threads, newThread]);
   };
 
@@ -62,9 +31,17 @@ const Forum = () => {
 
   useEffect(() => {
     setSelectedFilter("newest");
+    axios
+      .get("/forum/threads")
+      .then((response) => {
+        const newThreads = response.data;
+        setThreads([...threads, ...newThreads]);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, []);
 
-  // Filter threads based on the selected filter option
   const filteredThreads = threads
     .sort((a, b) => {
       if (selectedFilter === "newest") {

@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import axios from "axios";
+import { AuthContext } from "./AuthContext";
+import getFormattedDate from "../utility/formattedDate";
 
 const CreateThread = ({ onThreadSubmit, onClose }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  const handleSubmit = (e) => {
+  const auth = useContext(AuthContext);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Validate input fields
@@ -13,28 +18,43 @@ const CreateThread = ({ onThreadSubmit, onClose }) => {
       return;
     }
 
-    const options = { month: "long", day: "numeric", year: "numeric" };
-    const formattedDate = new Date().toLocaleDateString("en-US", options);
-
     // Create new thread object
     const newThread = {
       title,
-      author: "NEFisherman123", // Set the username here
+      author: auth.username,
       content,
-      date: formattedDate,
+      date: getFormattedDate(),
       comments: [],
+      totalComments: 0,
+      totalViews: 0,
       id: Date.now(),
     };
 
-    // Pass new thread to parent component
-    onThreadSubmit(newThread);
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:5000/forum",
+        newThread
+      );
 
-    // Clear input fields
-    setTitle("");
-    setContent("");
+      console.log(response);
 
-    // Close the modal
-    onClose();
+      if (!response.status === 201) {
+        throw new Error("Failed to create thread");
+      }
+
+      // Pass new thread to parent component
+      onThreadSubmit(newThread);
+
+      // Clear input fields
+      setTitle("");
+      setContent("");
+
+      // Close the modal
+      onClose();
+    } catch (error) {
+      console.error(error);
+      alert("An error occurred while creating the thread");
+    }
   };
 
   return (

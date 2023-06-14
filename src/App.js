@@ -13,6 +13,7 @@ import Thread from "./components/Thread";
 import State from "./components/State";
 import Profile from "./components/Profile";
 import Footer from "./components/Footer";
+import { AuthProvider } from "./components/AuthContext";
 
 const App = () => {
   const states = [
@@ -486,24 +487,26 @@ const App = () => {
   ];
 
   return (
-    <div className="App">
-      <Header />
-      <Navbar />
-      <Routes>
-        <Route path="/Reel-Northeast" element={<Home />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/forum" element={<Forum />} />
-        <Route path="/species" element={<Species />} />
-        <Route path="/states" element={<States states={states} />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/thread" element={<Thread />} />
-        <Route path="/state/:id" element={<State states={states} />} />
-        <Route path="/profile/:id" element={<Profile />} />
-      </Routes>
-      <Footer />
-    </div>
+    <AuthProvider>
+      <div className="App">
+        <Header />
+        <Navbar />
+        <Routes>
+          <Route path="/Reel-Northeast" element={<Home />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/forum" element={<Forum />} />
+          <Route path="/species" element={<Species />} />
+          <Route path="/states" element={<States states={states} />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/thread" element={<Thread />} />
+          <Route path="/state/:id" element={<State states={states} />} />
+          <Route path="/profile/:id" element={<Profile />} />
+        </Routes>
+        <Footer />
+      </div>
+    </AuthProvider>
   );
 };
 

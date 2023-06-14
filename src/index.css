@@ -30,25 +30,30 @@ header {
 }
 
 /* Navbar */
+
 nav {
   background-color: #003e93;
-  padding: 20px;
+  padding: 5px;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .nav-list {
+  list-style: none;
   display: flex;
   justify-content: center;
-  list-style-type: none;
-  margin: 0;
+  align-items: center;
   padding: 0;
+  margin: 0;
+  flex-grow: 1;
 }
 
 .nav-item {
-  margin: 0 25px;
-}
-
-.nav-item:last-child {
-  margin-right: 0;
+  margin: 0 40px;
 }
 
 .nav-item a {
@@ -61,6 +66,44 @@ nav {
 .nav-item a:hover {
   color: #ffffff;
 }
+
+.auth-nav-list {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+
+.auth-nav-list .nav-item {
+  margin-left: 10px;
+}
+
+.logout {
+  color: #c6c5c5;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease-in-out;
+}
+
+.logout:hover {
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.welcome-user {
+  color: #c6c5c5;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease-in-out;
+}
+
+.welcome-user:hover {
+  text-decoration: underline;
+  cursor: pointer;
+  color: #ffffff;
+}
+
 /* Footer Start*/
 .footer {
   background-color: #1a75ff;
@@ -312,6 +355,19 @@ nav {
   background-color: #fff;
   border-radius: 4px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: calc(100% - 40px);
+}
+
+.right-column {
+  flex-grow: 1;
+}
+
+.threads {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .thread:hover {
@@ -376,6 +432,15 @@ nav {
 .comment-content {
   margin-top: 5px;
   color: black;
+}
+
+.individual-thread {
+  margin: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  min-height: calc(100vh - 250px);
 }
 
 /* Search */
@@ -628,11 +693,14 @@ textarea#content {
 .signup-form input[type="password"].signup-form input[type="text"],
 .signup-form input[type="password"],
 .signup-form input[type="email"] {
-  width: 100%;
-  padding: 10px 0;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  width: calc(100% - 20px);
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
   margin-bottom: 10px;
+}
+
+.signup-form input {
 }
 
 .signup-form div {

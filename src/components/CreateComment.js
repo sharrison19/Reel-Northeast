@@ -1,33 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { AuthContext } from "./AuthContext";
+import axios from "axios";
+import getFormattedDate from "../utility/formattedDate";
 
-const CreateComment = ({ onCommentSubmit }) => {
-  const [author, setAuthor] = useState("YourUser123");
+const CreateComment = ({ onCommentSubmit, threadId }) => {
   const [content, setContent] = useState("");
 
-  const handleSubmit = (e) => {
+  const auth = useContext(AuthContext);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate input fields
     if (!content) {
       alert("Please fill in all the fields");
       return;
     }
 
-    const options = { month: "long", day: "numeric", year: "numeric" };
-    const formattedDate = new Date().toLocaleDateString("en-US", options);
-
-    // Create new comment object
     const newComment = {
-      author,
+      author: auth.username,
       content,
-      date: formattedDate,
+      date: getFormattedDate(),
     };
 
-    // Pass new comment to parent component
-    onCommentSubmit(newComment);
+    try {
+      const response = await axios.post(
+        `http://127.0.0.1:5000/forum/${threadId}/comments`,
+        newComment
+      );
 
-    // Clear input field
-    setContent("");
+      console.log(response);
+
+      if (!response.status === 201) {
+        throw new Error("Failed to create comment");
+      }
+
+      onCommentSubmit(newComment);
+
+      // Clear input fields
+      setContent("");
+    } catch (error) {
+      console.error(error);
+      alert("An error occurred while creating the comment");
+    }
   };
 
   return (

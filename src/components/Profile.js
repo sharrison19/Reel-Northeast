@@ -8,7 +8,6 @@ const Profile = ({
   biography = "I love fishing",
   profilePicture = johnSmith,
   email = "johnsmith@yahoo.com",
-  website = "johnsmith.com",
   socialMediaLinks = [
     { url: "facebook.com/johnsmith", platform: "facebook" },
     { url: "reddit.com/johnsmith", platform: "reddit" },
@@ -22,7 +21,6 @@ const Profile = ({
     state,
     biography,
     email,
-    website,
   });
 
   const handleInputChange = (e) => {
@@ -66,29 +64,6 @@ const Profile = ({
             name
           )}
         </h3>
-        <p className="profile-state">
-          {isEditable ? (
-            <input
-              type="text"
-              name="state"
-              value={editableProperties.state}
-              onChange={handleInputChange}
-            />
-          ) : (
-            state
-          )}
-        </p>
-        <p className="profile-biography">
-          {isEditable ? (
-            <textarea
-              name="biography"
-              value={editableProperties.biography}
-              onChange={handleInputChange}
-            />
-          ) : (
-            biography
-          )}
-        </p>
         <div className="profile-contacts">
           <p className="profile-email">
             Email:{" "}
@@ -103,21 +78,30 @@ const Profile = ({
               email
             )}
           </p>
-          {website && (
-            <p className="profile-website">
-              Website:{" "}
-              {isEditable ? (
-                <input
-                  type="text"
-                  name="website"
-                  value={editableProperties.website}
-                  onChange={handleInputChange}
-                />
-              ) : (
-                website
-              )}
-            </p>
-          )}
+          <p className="profile-state">
+            {isEditable ? (
+              <input
+                type="text"
+                name="state"
+                value={editableProperties.state}
+                onChange={handleInputChange}
+              />
+            ) : (
+              state
+            )}
+          </p>
+          <p className="profile-biography">
+            {isEditable ? (
+              <textarea
+                name="biography"
+                value={editableProperties.biography}
+                onChange={handleInputChange}
+              />
+            ) : (
+              biography
+            )}
+          </p>
+
           {socialMediaLinks && (
             <div className="profile-social-media">
               <p>Follow me:</p>

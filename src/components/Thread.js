@@ -1,10 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CreateComment from "./CreateComment";
 import { useLocation } from "react-router-dom";
 
-const Thread = ({ thread }) => {
+const Thread = () => {
   const location = useLocation();
-  const { title, author, content, date, comments } = location.state;
+  const thread = location.state;
+  const {
+    _id,
+    title,
+    author,
+    content,
+    date,
+    comments,
+    totalComments,
+    totalViews,
+  } = thread;
 
   const [updatedComments, setUpdatedComments] = useState(comments);
 
@@ -12,15 +22,41 @@ const Thread = ({ thread }) => {
     setUpdatedComments((prevComments) => [...prevComments, newComment]);
   };
 
+  useEffect(() => {
+    if (thread) {
+      fetchComments();
+    }
+  }, [thread]);
+
+  const fetchComments = async () => {
+    try {
+      const response = await fetch(`/forum/${thread._id}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch comments from the backend");
+      }
+      const commentsData = await response.json();
+      setUpdatedComments(commentsData);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
-    <div className="thread">
+    <div className="individual-thread">
       <h3 className="thread-title">{title}</h3>
       <div className="thread-info">
         <span className="thread-author">Author: {author}</span>
         <span className="thread-date">Date: {date}</span>
+        <span className="thread-total-comments">
+          Total Comments: {totalComments}
+        </span>
+        <span className="thread-total-views">Total Views: {totalViews}</span>
       </div>
       <p className="thread-content">{content}</p>
-      <CreateComment onCommentSubmit={handleCommentSubmit} />
+      <CreateComment
+        threadId={thread._id}
+        onCommentSubmit={handleCommentSubmit}
+      />
       <div className="thread-comments">
         <h4>Comments ({updatedComments.length})</h4>
         {updatedComments.length > 0 ? (

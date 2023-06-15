@@ -321,13 +321,12 @@ nav {
 /*Species Page End */
 
 /*Forum Page Start */
-/* Forum Container */
+
 .forum-page {
   margin: 0 auto;
   padding: 20px;
 }
 
-/* Buttons */
 .create-a-thread-btn {
   padding: 10px 20px;
   background-color: #4caf50;
@@ -434,6 +433,74 @@ nav {
   color: black;
 }
 
+.categories-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.categories-checkbox {
+  display: flex;
+  align-items: center;
+}
+
+.categories-label {
+  margin-left: 5px;
+}
+
+.categories-checkbox input[type="checkbox"] {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin: 0;
+  cursor: pointer;
+}
+
+.categories-checkbox input[type="checkbox"]:checked {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.categories-checkbox input[type="checkbox"]:checked::before {
+  content: "\2713";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  text-align: center;
+  color: #fff;
+}
+
+.selected-categories {
+  margin-top: 10px;
+}
+
+.selected-categories-header {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.selected-categories-list {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.selected-categories-item {
+  background-color: #1a75ff;
+  color: #fff;
+  font-size: 14px;
+  padding: 6px 12px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  border-radius: 4px;
+}
+
 .individual-thread {
   margin: 20px;
   padding: 20px;
@@ -470,8 +537,6 @@ nav {
 .search-icon:hover {
   color: #333;
 }
-
-/* Add your desired icon styles */
 
 /*Create Thread Section */
 .modal {

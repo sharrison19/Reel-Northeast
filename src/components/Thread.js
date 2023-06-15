@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import CreateComment from "./CreateComment";
 import { useLocation } from "react-router-dom";
 
@@ -22,24 +23,30 @@ const Thread = () => {
     setUpdatedComments((prevComments) => [...prevComments, newComment]);
   };
 
-  useEffect(() => {
-    if (thread) {
-      fetchComments();
-    }
-  }, [thread]);
-
-  const fetchComments = async () => {
+  const incrementViews = async (threadId) => {
     try {
-      const response = await fetch(`/forum/${thread._id}`);
-      if (!response.ok) {
-        throw new Error("Failed to fetch comments from the backend");
-      }
-      const commentsData = await response.json();
-      setUpdatedComments(commentsData);
+      await axios.put(`/forum/${threadId}/views`);
     } catch (error) {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    incrementViews(_id); // Pass the threadId parameter
+  }, []);
+
+  const fetchComments = async () => {
+    try {
+      const response = await axios.get(`/forum/${_id}`);
+      setUpdatedComments(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchComments();
+  }, []);
 
   return (
     <div className="individual-thread">

@@ -7,13 +7,14 @@ import axios from "axios";
 const Forum = () => {
   const navigate = useNavigate();
   const handleThread = (thread) => {
-    return () => {
-      navigate("/thread", { state: thread });
-    };
+    navigate("/thread", { state: thread });
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [threads, setThreads] = useState([]);
+  const [viewedThreadsForum, setViewedThreadsForum] = useState([]);
+  const [viewedThreadsThread, setViewedThreadsThread] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState([]);
 
   const [selectedFilter, setSelectedFilter] = useState("newest");
 
@@ -34,14 +35,37 @@ const Forum = () => {
     axios
       .get("/forum/threads")
       .then((response) => {
-        const newThreads = response.data;
-        setThreads([...threads, ...newThreads]);
+        setThreads(response.data);
       })
       .catch((error) => {
         console.error(error);
       });
   }, []);
 
+  useEffect(() => {
+    viewedThreadsForum.forEach((threadId) => {
+      console.log("Thread marked as viewed in the forum:", threadId);
+      // Increment the view count in the server for the forum view
+      axios
+        .put(`/forum/${threadId}/views`)
+        .then(() => {
+          console.log(
+            "View count incremented for thread in the forum:",
+            threadId
+          );
+        })
+        .catch((error) => {
+          console.error("Failed to increment view count in the forum:", error);
+        });
+    });
+  }, [viewedThreadsForum]);
+
+  const markThreadAsViewed = (threadId) => {
+    if (!viewedThreadsThread.includes(threadId)) {
+      console.log("Marking thread as viewed in the thread:", threadId);
+      setViewedThreadsThread([...viewedThreadsThread, threadId]);
+    }
+  };
   const filteredThreads = threads
     .sort((a, b) => {
       if (selectedFilter === "newest") {
@@ -83,6 +107,7 @@ const Forum = () => {
           <CreateThread
             onThreadSubmit={handleThreadSubmit}
             onClose={handleCloseModal}
+            selectedCategories={selectedCategories}
           />
         )}
         <div className="search-container">
@@ -139,7 +164,10 @@ const Forum = () => {
           <div className="threads">
             {filteredThreads.map((thread, index) => (
               <div
-                onClick={handleThread(thread)}
+                onClick={() => {
+                  markThreadAsViewed(thread._id); // Assuming the thread ID property is `_id`
+                  handleThread(thread);
+                }}
                 className="thread"
                 key={index}
               >
@@ -153,6 +181,16 @@ const Forum = () => {
                 <p className="thread-total-views">
                   Total Views: {thread.totalViews}
                 </p>
+                <div className="selected-categories">
+                  <h4 className="selected-categories-header">Categories:</h4>
+                  <ul className="selected-categories-list">
+                    {thread.categories.map((category) => (
+                      <li key={category} className="selected-categories-item">
+                        {category}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             ))}
           </div>

@@ -17,28 +17,33 @@ const Thread = () => {
     totalViews,
   } = thread;
 
-  const [updatedComments, setUpdatedComments] = useState(comments);
+  console.log("Comments data type:", Array.isArray(comments));
+
+  const [updatedComments, setUpdatedComments] = useState([]);
 
   const handleCommentSubmit = (newComment) => {
-    setUpdatedComments((prevComments) => [...prevComments, newComment]);
+    setUpdatedComments((prevComments) => {
+      const commentsArray = Array.isArray(prevComments) ? prevComments : [];
+      return [...commentsArray, newComment];
+    });
   };
 
-  const incrementViews = async (threadId) => {
+  const incrementViews = async () => {
     try {
-      await axios.put(`/forum/${threadId}/views`);
+      await axios.put(`/forum/${_id}/views`);
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    incrementViews(_id); // Pass the threadId parameter
+    incrementViews();
   }, []);
 
   const fetchComments = async () => {
     try {
       const response = await axios.get(`/forum/${_id}`);
-      setUpdatedComments(response.data);
+      setUpdatedComments(response.data.comments);
     } catch (error) {
       console.error(error);
     }
@@ -46,7 +51,7 @@ const Thread = () => {
 
   useEffect(() => {
     fetchComments();
-  }, []);
+  }, [_id]);
 
   return (
     <div className="individual-thread">
@@ -60,10 +65,7 @@ const Thread = () => {
         <span className="thread-total-views">Total Views: {totalViews}</span>
       </div>
       <p className="thread-content">{content}</p>
-      <CreateComment
-        threadId={thread._id}
-        onCommentSubmit={handleCommentSubmit}
-      />
+      <CreateComment threadId={_id} onCommentSubmit={handleCommentSubmit} />
       <div className="thread-comments">
         <h4>Comments ({updatedComments.length})</h4>
         {updatedComments.length > 0 ? (

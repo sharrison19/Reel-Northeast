@@ -30,7 +30,7 @@ const CreateComment = ({ onCommentSubmit, threadId }) => {
 
       console.log(response);
 
-      if (!response.status === 201) {
+      if (response.status !== 201) {
         throw new Error("Failed to create comment");
       }
 

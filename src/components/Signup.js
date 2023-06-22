@@ -11,7 +11,6 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const auth = useContext(AuthContext);
-  console.log(auth);
 
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value);

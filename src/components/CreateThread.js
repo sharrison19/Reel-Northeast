@@ -44,6 +44,7 @@ const CreateThread = ({ onThreadSubmit, onClose }) => {
       totalViews: 0,
       categories: selectedCategories,
       id: Date.now(),
+      time: Date.now(),
     };
 
     try {

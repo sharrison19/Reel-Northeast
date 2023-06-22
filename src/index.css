@@ -13,6 +13,7 @@ header {
   align-items: center;
   justify-content: center;
   background-color: #1a75ff;
+  padding: 10px 0;
 }
 
 .home-title {
@@ -348,14 +349,6 @@ nav {
 }
 
 /* Thread Section */
-.thread {
-  margin: 20px;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 4px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  width: calc(100% - 40px);
-}
 
 .right-column {
   flex-grow: 1;
@@ -369,14 +362,79 @@ nav {
   margin: 0 auto;
 }
 
+.forum-thread {
+  margin: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: calc(100% - 40px);
+}
+
+.forum-thread:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+.forum-thread-title {
+  font-size: 30px;
+  margin: 0;
+  color: #333;
+}
+
+.forum-thread-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.forum-thread-info-item {
+  margin-right: 20px;
+}
+
+.forum-thread-info-item:last-child {
+  margin-right: 0;
+}
+
+.forum-thread-content {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 10px;
+}
+
+.selected-categories {
+  margin-top: 10px;
+}
+
+.selected-categories-header {
+  font-size: 18px;
+  margin: 0;
+  color: #333;
+}
+
+.selected-categories-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.selected-categories-item {
+  font-size: 14px;
+  color: #666;
+}
+
+/* */
 .thread:hover {
   background-color: #f1f1f1;
   cursor: pointer;
 }
 
 .thread-title {
-  font-size: 24px;
-  margin-bottom: 10px;
+  font-size: 30px;
+  margin: 0;
   color: #333;
 }
 
@@ -1009,51 +1067,94 @@ textarea#content {
 
 /*State Page End */
 
-/*Profile Start */
+/* Profile Start */
+.profile-background {
+  background-image: url("images/profilebackground.jpg"); /* Set the background image */
+  background-size: cover; /* Scale the image to cover the container */
+  background-position: center; /* Position the image at the center */
+  padding: 30px 0;
+}
+
 .profile-container {
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
+  align-items: center;
   padding: 20px;
+  max-width: 600px;
+  min-height: calc(100vh - 250px);
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.85);
+}
+
+.profile-picture {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
+}
+
+.profile-picture-container {
+  overflow: hidden;
+  border-radius: 50%;
 }
 
 .profile-picture img {
-  width: 150px;
-  height: 150px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  outline: none;
   border-radius: 50%;
 }
 
 .profile-info {
-  margin-top: 20px;
   text-align: center;
 }
 
 .profile-username {
-  font-size: 24px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  margin-top: 30px;
+}
+
+.profile-username:not(.is-editing) {
   font-weight: bold;
-  margin-bottom: 5px;
+  color: #0079d3;
+  font-size: 30px;
+  font-family: "Arial", "Helvetica", sans-serif;
+}
+
+.profile-name:not(.is-editing),
+.profile-state:not(.is-editing),
+.profile-email:not(.is-editing),
+.profile-biography:not(.is-editing) {
+  font-size: 20px;
+  font-family: "Arial", "Helvetica", sans-serif;
 }
 
 .profile-name {
-  font-size: 18px;
+  font-size: 16px;
   color: #333;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .profile-state {
   font-size: 16px;
-  color: #666;
+  color: #333;
   margin-bottom: 10px;
 }
 
 .profile-biography {
-  margin-bottom: 20px;
+  margin-bottom: 40px;
+  color: #333;
+  line-height: 1.6;
 }
 
 .profile-contacts {
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 .profile-email,
@@ -1080,7 +1181,7 @@ textarea#content {
 }
 
 .profile-social-media a {
-  color: #333;
+  color: #0079d3;
   text-decoration: none;
 }
 
@@ -1089,21 +1190,24 @@ textarea#content {
 }
 
 .profile-info input,
-.profile-info textarea {
+.profile-info textarea,
+.profile-info select {
   width: 100%;
   padding: 8px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
   resize: none;
+  font-size: 16px;
+  color: #333;
 }
 
 .profile-edit-controls {
-  margin-top: 10px;
+  margin-top: 40px;
 }
 
 .profile-edit-controls button {
-  background-color: #4caf50;
+  background-color: #0079d3;
   color: white;
   border: none;
   padding: 8px 16px;
@@ -1113,13 +1217,113 @@ textarea#content {
   font-size: 14px;
   cursor: pointer;
   transition-duration: 0.4s;
+  border-radius: 4px;
 }
 
 .profile-edit-controls button:hover {
-  background-color: #45a049;
+  background-color: #005ea6;
+  transform: scale(1.05);
 }
 
-/*Profile End */
+.profile-edit-mode .profile-info input,
+.profile-edit-mode .profile-info textarea,
+.profile-edit-mode .profile-info select {
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 8px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.profile-edit-mode .profile-username input,
+.profile-edit-mode .profile-name input {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+  border: none;
+  background-color: transparent;
+}
+
+.profile-edit-mode .profile-state select {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 10px;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 8px;
+  width: 100%;
+}
+
+.profile-edit-controls .edit-mode-button {
+  background-color: #0079d3;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  border-radius: 4px;
+}
+
+.profile-edit-controls .edit-mode-button:hover {
+  background-color: #005ea6;
+}
+
+.profile-edit-mode .profile-picture .upload-button {
+  background-color: #0079d3;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  margin-top: 10px;
+  font-size: 14px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  border-radius: 4px;
+}
+
+.profile-edit-mode .profile-picture .upload-button:hover {
+  background-color: #005ea6;
+}
+
+/* Hide the default file input */
+.file-input {
+  display: none;
+}
+
+.file-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.file-upload-button {
+  background-color: #0079d3;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  cursor: pointer;
+  transition-duration: 0.4s;
+  border-radius: 4px;
+  margin: 10px 0;
+}
+
+.file-upload-button:hover {
+  background-color: #005ea6;
+}
+
+/* Profile End */
 
 /*Create Comment Start */
 .create-comment-form {
@@ -1166,3 +1370,80 @@ textarea#content {
 }
 
 /*Create Comment End */
+
+/* Reply Comment Start */
+.reply-comment-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+#reply-comment-container .reply-comment-header {
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+.reply-comment-form-group {
+  display: flex;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.reply-comment-content {
+  width: 80%;
+  margin: auto;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  resize: none;
+  height: 100px !important;
+}
+
+.reply-comment-submit {
+  margin-right: 10px;
+  padding: 8px 16px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.reply-comment-submit:hover {
+  background-color: #45a049;
+}
+
+.reply-comment-cancel {
+  padding: 8px 16px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.reply-comment-cancel:hover {
+  background-color: #d32f2f;
+}
+
+.reply-comment-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-weight: bolder;
+  cursor: pointer;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: black;
+}
+.reply-comment-btn:hover {
+  color: #1a75ff;
+}
+
+/* Reply Comment End */

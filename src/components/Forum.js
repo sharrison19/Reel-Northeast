@@ -66,34 +66,24 @@ const Forum = () => {
       setViewedThreadsThread([...viewedThreadsThread, threadId]);
     }
   };
-  const filteredThreads = threads
-    .sort((a, b) => {
-      if (selectedFilter === "newest") {
-        return new Date(b.date) - new Date(a.date);
-      }
-      if (selectedFilter === "oldest") {
-        return new Date(a.date) - new Date(b.date);
-      }
-      return 0;
-    })
-    .filter((thread, index) => {
-      if (selectedFilter === "oldest") {
-        return index < 5;
-      }
-      if (selectedFilter === "mostViews") {
-        return thread.totalViews > 0;
-      }
-      return true;
-    })
-    .sort((a, b) => {
-      if (selectedFilter === "mostComments") {
-        return b.totalComments - a.totalComments;
-      }
-      if (selectedFilter === "mostViews") {
-        return b.totalViews - a.totalViews;
-      }
-      return 0;
-    });
+  const filteredThreads = threads.sort((a, b) => {
+    let aDate = new Date(a.time);
+    let bDate = new Date(b.time);
+
+    if (selectedFilter === "newest") {
+      return bDate.getTime() - aDate.getTime();
+    }
+    if (selectedFilter === "oldest") {
+      return aDate.getTime() - bDate.getTime();
+    }
+    if (selectedFilter === "mostComments") {
+      return b.totalComments - a.totalComments;
+    }
+    if (selectedFilter === "mostViews") {
+      return b.totalViews - a.totalViews;
+    }
+    return 0;
+  });
 
   return (
     <div className="forum-page">
@@ -165,22 +155,38 @@ const Forum = () => {
             {filteredThreads.map((thread, index) => (
               <div
                 onClick={() => {
-                  markThreadAsViewed(thread._id); // Assuming the thread ID property is `_id`
+                  markThreadAsViewed(thread._id);
                   handleThread(thread);
                 }}
-                className="thread"
+                className="forum-thread"
                 key={index}
               >
-                <h2 className="thread-title">{thread.title}</h2>
-                <p className="thread-content">{thread.content}</p>
-                <p className="thread-author">Posted By: {thread.author}</p>
-                <p className="thread-date">Date: {thread.date}</p>
-                <p className="thread-total-comments">
-                  Total Comments: {thread.totalComments}
-                </p>
-                <p className="thread-total-views">
-                  Total Views: {thread.totalViews}
-                </p>
+                <h2 className="forum-thread-title">{thread.title}</h2>
+                <div className="forum-thread-info">
+                  <div className="forum-thread-info-item">
+                    Author:{" "}
+                    <span className="forum-thread-author">{thread.author}</span>
+                  </div>
+                  <div className="forum-thread-info-item">
+                    Date:{" "}
+                    <span className="forum-thread-date">{thread.date}</span>
+                  </div>
+                </div>
+                <div className="forum-thread-info">
+                  <div className="forum-thread-info-item">
+                    Total Comments:{" "}
+                    <span className="forum-thread-total-comments">
+                      {thread.totalComments}
+                    </span>
+                  </div>
+                  <div className="forum-thread-info-item">
+                    Total Views:{" "}
+                    <span className="forum-thread-total-views">
+                      {thread.totalViews}
+                    </span>
+                  </div>
+                </div>
+                <p className="forum-thread-content">{thread.content}</p>
                 <div className="selected-categories">
                   <h4 className="selected-categories-header">Categories:</h4>
                   <ul className="selected-categories-list">

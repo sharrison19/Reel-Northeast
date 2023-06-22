@@ -13,6 +13,38 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [username, setUsername] = useState("");
 
+  const localToken =
+    localStorage.getItem("token") === "null"
+      ? false
+      : localStorage.getItem("token");
+  const [isLocalTokenUpdated, setIsLocalTokenUpdated] = useState(false);
+
+  if (localToken && !isLocalTokenUpdated) {
+    setIsAuthenticated(true);
+    setUsername(localStorage.getItem("username"));
+    setIsLocalTokenUpdated(true);
+    setToken(localToken);
+    axios.defaults.headers.common["Authorization"] = `Bearer ${localToken}`;
+  }
+
+  axios.interceptors.response.use(
+    (response) => {
+      const token = response?.headers?.["token"];
+      if (token) {
+        setToken(token);
+        localStorage.setItem("token", token);
+      }
+      return response;
+    },
+    (error) => {
+      console.log(error);
+      if (error.response.status === 401 || error.response.status === 400) {
+        setError(error.response.data.message);
+      }
+      return error;
+    }
+  );
+
   // Function to handle authentication
   const handleAuthentication = async (userCredentials) => {
     setLoading(true);
@@ -27,7 +59,9 @@ export const AuthProvider = ({ children }) => {
         // Authentication successful
         setIsAuthenticated(true);
         setUsername(userCredentials.username);
-        setToken(response.data.token); // Save the JWT token
+        setToken(response.data.token);
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("username", userCredentials.username);
         axios.defaults.headers.common[
           "Authorization"
         ] = `Bearer ${response.data.token}`; // Set the Authorization header for all future requests
@@ -35,12 +69,18 @@ export const AuthProvider = ({ children }) => {
         // Authentication failed
         setIsAuthenticated(false);
         setUsername("");
+        setToken(null);
+        localStorage.setItem("token", null);
+        localStorage.setItem("username", null);
       }
     } catch (error) {
       // Handle any error that occurred during the API call
       console.error("Authentication failed:", error);
       setIsAuthenticated(false);
       setUsername("");
+      setToken(null);
+      localStorage.setItem("token", null);
+      localStorage.setItem("username", null);
       setError("Authentication failed. Please try again.");
     } finally {
       setLoading(false);
@@ -55,13 +95,16 @@ export const AuthProvider = ({ children }) => {
     try {
       // Make an API call to sign up the user
       const response = await axios.post("/signup", userCredentials);
+      console.log(response);
 
       // Check the response status or data to determine if signup was successful
       if (response.status === 201 && response.data.token) {
         // Signup successful
         setIsAuthenticated(true);
         setUsername(userCredentials.username);
-        setToken(response.data.token); // Save the JWT token
+        setToken(response.data.token);
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("username", userCredentials.username);
         axios.defaults.headers.common[
           "Authorization"
         ] = `Bearer ${response.data.token}`; // Set the Authorization header for all future requests
@@ -69,12 +112,18 @@ export const AuthProvider = ({ children }) => {
         // Signup failed
         setIsAuthenticated(false);
         setUsername("");
+        setToken(null);
+        localStorage.setItem("token", null);
+        localStorage.setItem("username", null);
       }
     } catch (error) {
       // Handle any error that occurred during the API call
       console.error("Signup failed:", error);
       setIsAuthenticated(false);
       setUsername("");
+      setToken(null);
+      localStorage.setItem("token", null);
+      localStorage.setItem("username", null);
       setError("Signup failed. Please try again.");
     } finally {
       setLoading(false);
@@ -95,7 +144,9 @@ export const AuthProvider = ({ children }) => {
         // Logout successful
         setIsAuthenticated(false);
         setUsername("");
-        setToken(null); // Clear the saved token
+        setToken(null);
+        localStorage.setItem("username", null);
+        localStorage.setItem("token", null);
         delete axios.defaults.headers.common["Authorization"]; // Remove the Authorization header for future requests
       } else {
         // Logout failed
@@ -123,6 +174,7 @@ export const AuthProvider = ({ children }) => {
         handleSignup,
         handleLogout,
         username,
+        setError,
       }}
     >
       {children}

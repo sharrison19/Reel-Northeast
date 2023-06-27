@@ -30,6 +30,16 @@ const Forum = () => {
     setIsModalOpen(false);
   };
 
+  const handleCategoryFilter = (category) => {
+    setSelectedCategories((prevCategories) => {
+      if (prevCategories.includes(category)) {
+        return prevCategories.filter((c) => c !== category);
+      } else {
+        return [...prevCategories, category];
+      }
+    });
+  };
+
   useEffect(() => {
     setSelectedFilter("newest");
     axios
@@ -66,24 +76,34 @@ const Forum = () => {
       setViewedThreadsThread([...viewedThreadsThread, threadId]);
     }
   };
-  const filteredThreads = threads.sort((a, b) => {
-    let aDate = new Date(a.time);
-    let bDate = new Date(b.time);
+  const filteredThreads = threads
+    .filter((thread) => {
+      // Check if any selected category is present in the thread's categories
+      return (
+        selectedCategories.length === 0 ||
+        selectedCategories.some((category) =>
+          thread.categories.includes(category)
+        )
+      );
+    })
+    .sort((a, b) => {
+      let aDate = new Date(a.time);
+      let bDate = new Date(b.time);
 
-    if (selectedFilter === "newest") {
-      return bDate.getTime() - aDate.getTime();
-    }
-    if (selectedFilter === "oldest") {
-      return aDate.getTime() - bDate.getTime();
-    }
-    if (selectedFilter === "mostComments") {
-      return b.totalComments - a.totalComments;
-    }
-    if (selectedFilter === "mostViews") {
-      return b.totalViews - a.totalViews;
-    }
-    return 0;
-  });
+      if (selectedFilter === "newest") {
+        return bDate.getTime() - aDate.getTime();
+      }
+      if (selectedFilter === "oldest") {
+        return aDate.getTime() - bDate.getTime();
+      }
+      if (selectedFilter === "mostComments") {
+        return b.totalComments - a.totalComments;
+      }
+      if (selectedFilter === "mostViews") {
+        return b.totalViews - a.totalViews;
+      }
+      return 0;
+    });
 
   return (
     <div className="forum-page">
@@ -110,20 +130,146 @@ const Forum = () => {
           <div>
             <h1 className="categories-title">Categories</h1>
             <ul className="categories-list">
-              <li className="category-item">Fly Fishing</li>
-              <li className="category-item">Freshwater Fishing</li>
-              <li className="category-item">Saltwater Fishing</li>
-              <li className="category-item">Bass Fishing</li>
-              <li className="category-item">Trout Fishing</li>
-              <li className="category-item">Deep Sea Fishing</li>
-              <li className="category-item">Ice Fishing</li>
-              <li className="category-item">Kayak Fishing</li>
-              <li className="category-item">Surf Casting Fishing</li>
-              <li className="category-item">Bait and Tackle</li>
-              <li className="category-item">Fishing Gear</li>
-              <li className="category-item">Fishing Reports</li>
-              <li className="category-item">Fishing Tips and Tricks</li>
-              <li className="category-item">Fishing Conservation</li>
+              <li
+                className={`category-item ${
+                  selectedCategories.includes("Fly Fishing")
+                    ? "selected-category"
+                    : ""
+                }`}
+                onClick={() => handleCategoryFilter("Fly Fishing")}
+              >
+                Fly Fishing
+              </li>
+              <li
+                className={`category-item ${
+                  selectedCategories.includes("Freshwater Fishing")
+                    ? "selected-category"
+                    : ""
+                }`}
+                onClick={() => handleCategoryFilter("Freshwater Fishing")}
+              >
+                Freshwater Fishing
+              </li>
+              <li
+                className={`category-item ${
+                  selectedCategories.includes("Saltwater Fishing")
+                    ? "selected-category"
+                    : ""
+                }`}
+                onClick={() => handleCategoryFilter("Saltwater Fishing")}
+              >
+                Saltwater Fishing
+              </li>
+              <li
+                className={`category-item ${
+                  selectedCategories.includes("Bass Fishing")
+                    ? "selected-category"
+                    : ""
+                }`}
+                onClick={() => handleCategoryFilter("Bass Fishing")}
+              >
+                Bass Fishing
+              </li>
+              <li
+                className={`category-item ${
+                  selectedCategories.includes("Trout Fishing")
+                    ? "selected-category"
+                    : ""
+                }`}
+                onClick={() => handleCategoryFilter("Trout Fishing")}
+              >
+                Trout Fishing
+              </li>
+              <li
+                className={`category-item ${
+                  selectedCategories.includes("Deep Sea Fishing")
+                    ? "selected-category"
+                    : ""
+                }`}
+                onClick={() => handleCategoryFilter("Deep Sea Fishing")}
+              >
+                Deep Sea Fishing
+              </li>
+              <li
+                className={`category-item ${
+                  selectedCategories.includes("Ice Fishing")
+                    ? "selected-category"
+                    : ""
+                }`}
+                onClick={() => handleCategoryFilter("Ice Fishing")}
+              >
+                Ice Fishing
+              </li>
+              <li
+                className={`category-item ${
+                  selectedCategories.includes("Kayak Fishing")
+                    ? "selected-category"
+                    : ""
+                }`}
+                onClick={() => handleCategoryFilter("Kayak Fishing")}
+              >
+                Kayak Fishing
+              </li>
+              <li
+                className={`category-item ${
+                  selectedCategories.includes("Surf Casting Fishing")
+                    ? "selected-category"
+                    : ""
+                }`}
+                onClick={() => handleCategoryFilter("Surf Casting Fishing")}
+              >
+                Surf Casting Fishing
+              </li>
+              <li
+                className={`category-item ${
+                  selectedCategories.includes("Bait and Tackle")
+                    ? "selected-category"
+                    : ""
+                }`}
+                onClick={() => handleCategoryFilter("Bait and Tackle")}
+              >
+                Bait and Tackle
+              </li>
+              <li
+                className={`category-item ${
+                  selectedCategories.includes("Fishing Gear")
+                    ? "selected-category"
+                    : ""
+                }`}
+                onClick={() => handleCategoryFilter("Fishing Gear")}
+              >
+                Fishing Gear
+              </li>
+              <li
+                className={`category-item ${
+                  selectedCategories.includes("Fishing Reports")
+                    ? "selected-category"
+                    : ""
+                }`}
+                onClick={() => handleCategoryFilter("Fishing Reports")}
+              >
+                Fishing Reports
+              </li>
+              <li
+                className={`category-item ${
+                  selectedCategories.includes("Fishing Tips and Tricks")
+                    ? "selected-category"
+                    : ""
+                }`}
+                onClick={() => handleCategoryFilter("Fishing Tips and Tricks")}
+              >
+                Fishing Tips and Tricks
+              </li>
+              <li
+                className={`category-item ${
+                  selectedCategories.includes("Fishing Conservation")
+                    ? "selected-category"
+                    : ""
+                }`}
+                onClick={() => handleCategoryFilter("Fishing Conservation")}
+              >
+                Fishing Conservation
+              </li>
             </ul>
           </div>
         </div>
@@ -152,53 +298,62 @@ const Forum = () => {
           </div>
 
           <div className="threads">
-            {filteredThreads.map((thread, index) => (
-              <div
-                onClick={() => {
-                  markThreadAsViewed(thread._id);
-                  handleThread(thread);
-                }}
-                className="forum-thread"
-                key={index}
-              >
-                <h2 className="forum-thread-title">{thread.title}</h2>
-                <div className="forum-thread-info">
-                  <div className="forum-thread-info-item">
-                    Author:{" "}
-                    <span className="forum-thread-author">{thread.author}</span>
+            {filteredThreads.length > 0 ? (
+              filteredThreads.map((thread, index) => (
+                <div
+                  onClick={() => {
+                    markThreadAsViewed(thread._id);
+                    handleThread(thread);
+                  }}
+                  className="forum-thread"
+                  key={index}
+                >
+                  <h2 className="forum-thread-title">{thread.title}</h2>
+                  <div className="forum-thread-info">
+                    <div className="forum-thread-info-item">
+                      Author:{" "}
+                      <span className="forum-thread-author">
+                        {thread.author}
+                      </span>
+                    </div>
+                    <div className="forum-thread-info-item">
+                      Date:{" "}
+                      <span className="forum-thread-date">{thread.date}</span>
+                    </div>
                   </div>
-                  <div className="forum-thread-info-item">
-                    Date:{" "}
-                    <span className="forum-thread-date">{thread.date}</span>
+                  <div className="forum-thread-info">
+                    <div className="forum-thread-info-item">
+                      Total Comments:{" "}
+                      <span className="forum-thread-total-comments">
+                        {thread.totalComments}
+                      </span>
+                    </div>
+                    <div className="forum-thread-info-item">
+                      Total Views:{" "}
+                      <span className="forum-thread-total-views">
+                        {thread.totalViews}
+                      </span>
+                    </div>
+                  </div>
+                  <p className="forum-thread-content">{thread.content}</p>
+                  <div className="selected-categories">
+                    <h4 className="selected-categories-header">Categories:</h4>
+                    <ul className="selected-categories-list">
+                      {thread.categories.map((category) => (
+                        <li key={category} className="selected-categories-item">
+                          {category}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
-                <div className="forum-thread-info">
-                  <div className="forum-thread-info-item">
-                    Total Comments:{" "}
-                    <span className="forum-thread-total-comments">
-                      {thread.totalComments}
-                    </span>
-                  </div>
-                  <div className="forum-thread-info-item">
-                    Total Views:{" "}
-                    <span className="forum-thread-total-views">
-                      {thread.totalViews}
-                    </span>
-                  </div>
-                </div>
-                <p className="forum-thread-content">{thread.content}</p>
-                <div className="selected-categories">
-                  <h4 className="selected-categories-header">Categories:</h4>
-                  <ul className="selected-categories-list">
-                    {thread.categories.map((category) => (
-                      <li key={category} className="selected-categories-item">
-                        {category}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p className="no-threads-message">
+                There are no threads available for this category. Be the first
+                one to start the conversation!
+              </p>
+            )}
           </div>
         </div>
       </div>

@@ -25,7 +25,12 @@ const Signup = () => {
   };
 
   const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
+    const newUsername = event.target.value;
+
+    // Validate username length
+    if (newUsername.length <= 25) {
+      setUsername(newUsername);
+    }
   };
 
   const handlePasswordChange = (event) => {

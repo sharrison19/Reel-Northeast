@@ -54,7 +54,8 @@ const CreateThread = ({ onThreadSubmit, onClose }) => {
       );
 
       if (response.status === 201) {
-        onThreadSubmit(newThread);
+        console.log(response);
+        onThreadSubmit(response.data);
         setTitle("");
         setContent("");
         onClose();

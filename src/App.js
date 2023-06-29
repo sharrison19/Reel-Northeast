@@ -502,6 +502,7 @@ const App = () => {
           <Route path="/signup" element={<Signup />} />
           <Route path="/thread" element={<Thread />} />
           <Route path="/state/:id" element={<State states={states} />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/profile/:id" element={<Profile />} />
         </Routes>
         <Footer />

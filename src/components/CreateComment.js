@@ -34,7 +34,7 @@ const CreateComment = ({ onCommentSubmit, threadId }) => {
         throw new Error("Failed to create comment");
       }
 
-      onCommentSubmit(newComment);
+      onCommentSubmit(response.data.comments);
 
       // Clear input fields
       setContent("");

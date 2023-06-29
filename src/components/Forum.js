@@ -15,6 +15,9 @@ const Forum = () => {
   const [viewedThreadsForum, setViewedThreadsForum] = useState([]);
   const [viewedThreadsThread, setViewedThreadsThread] = useState([]);
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [selectedFilter, setSelectedFilter] = useState("newest");
 
@@ -30,6 +33,23 @@ const Forum = () => {
     setIsModalOpen(false);
   };
 
+  const handleSearch = () => {
+    axios
+      .get(`/forum/search/${searchQuery}`)
+      .then((response) => {
+        setSearchResults(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
   const handleCategoryFilter = (category) => {
     setSelectedCategories((prevCategories) => {
       if (prevCategories.includes(category)) {
@@ -42,20 +62,21 @@ const Forum = () => {
 
   useEffect(() => {
     setSelectedFilter("newest");
+    setIsLoading(true);
     axios
       .get("/forum/threads")
       .then((response) => {
-        setThreads(response.data);
+        setTimeout(() => {
+          setThreads(response.data);
+          setIsLoading(false);
+        }, 1000);
       })
       .catch((error) => {
         console.error(error);
+        setIsLoading(false);
       });
-  }, []);
 
-  useEffect(() => {
     viewedThreadsForum.forEach((threadId) => {
-      console.log("Thread marked as viewed in the forum:", threadId);
-      // Increment the view count in the server for the forum view
       axios
         .put(`/forum/${threadId}/views`)
         .then(() => {
@@ -68,42 +89,49 @@ const Forum = () => {
           console.error("Failed to increment view count in the forum:", error);
         });
     });
-  }, [viewedThreadsForum]);
+  }, [searchResults, viewedThreadsForum]);
+
+  useEffect(() => {
+    if (searchQuery === "") {
+      setSearchResults([]);
+    }
+  }, [searchQuery]);
 
   const markThreadAsViewed = (threadId) => {
     if (!viewedThreadsThread.includes(threadId)) {
-      console.log("Marking thread as viewed in the thread:", threadId);
       setViewedThreadsThread([...viewedThreadsThread, threadId]);
     }
   };
-  const filteredThreads = threads
-    .filter((thread) => {
-      // Check if any selected category is present in the thread's categories
-      return (
-        selectedCategories.length === 0 ||
-        selectedCategories.some((category) =>
-          thread.categories.includes(category)
-        )
-      );
-    })
-    .sort((a, b) => {
-      let aDate = new Date(a.time);
-      let bDate = new Date(b.time);
+  const filteredThreads =
+    searchResults.length > 0
+      ? searchResults
+      : threads
+          .filter((thread) => {
+            return (
+              selectedCategories.length === 0 ||
+              selectedCategories.some((category) =>
+                thread.categories.includes(category)
+              )
+            );
+          })
+          .sort((a, b) => {
+            let aDate = new Date(a.time);
+            let bDate = new Date(b.time);
 
-      if (selectedFilter === "newest") {
-        return bDate.getTime() - aDate.getTime();
-      }
-      if (selectedFilter === "oldest") {
-        return aDate.getTime() - bDate.getTime();
-      }
-      if (selectedFilter === "mostComments") {
-        return b.totalComments - a.totalComments;
-      }
-      if (selectedFilter === "mostViews") {
-        return b.totalViews - a.totalViews;
-      }
-      return 0;
-    });
+            if (selectedFilter === "newest") {
+              return bDate.getTime() - aDate.getTime();
+            }
+            if (selectedFilter === "oldest") {
+              return aDate.getTime() - bDate.getTime();
+            }
+            if (selectedFilter === "mostComments") {
+              return b.totalComments - a.totalComments;
+            }
+            if (selectedFilter === "mostViews") {
+              return b.totalViews - a.totalViews;
+            }
+            return 0;
+          });
 
   return (
     <div className="forum-page">
@@ -121,8 +149,15 @@ const Forum = () => {
           />
         )}
         <div className="search-container">
-          <input placeholder="Search" className="search"></input>
-          <BsSearch className="search-icon" />
+          <input
+            placeholder="Search"
+            className="search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={handleKeyDown}
+          />
+
+          <BsSearch className="search-icon" onClick={handleSearch} />
         </div>
       </div>
       <div className="columns">
@@ -298,7 +333,9 @@ const Forum = () => {
           </div>
 
           <div className="threads">
-            {filteredThreads.length > 0 ? (
+            {isLoading ? (
+              <div className="spinner"></div>
+            ) : filteredThreads && filteredThreads.length > 0 ? (
               filteredThreads.map((thread, index) => (
                 <div
                   onClick={() => {
@@ -335,7 +372,7 @@ const Forum = () => {
                       </span>
                     </div>
                   </div>
-                  <p className="forum-thread-content">{thread.content}</p>
+                  <div className="forum-thread-content">{thread.content}</div>
                   <div className="selected-categories">
                     <h4 className="selected-categories-header">Categories:</h4>
                     <ul className="selected-categories-list">
@@ -350,8 +387,8 @@ const Forum = () => {
               ))
             ) : (
               <p className="no-threads-message">
-                There are no threads available for this category. Be the first
-                one to start the conversation!
+                No threads match your search criteria. Be the first one to start
+                a conversation on this topic!
               </p>
             )}
           </div>

@@ -77,42 +77,42 @@ const Signup = () => {
             eager to learn the ropes, Reel Northeast has something for everyone.
           </p>
           <h3>Why Choose Reel Northeast?</h3>
-          <ul>
-            <li>
+          <ul className="sales-list">
+            <li className="sales-list-item">
               <strong>Connect with Like-minded Anglers:</strong> Expand your
               network and connect with passionate anglers from the Northeast
               region. Share your fishing stories, exchange tips, and form
               lasting friendships with fellow anglers who understand your
               fishing adventures.
             </li>
-            <li>
+            <li className="sales-list-item">
               <strong>Explore the Best Fishing Spots:</strong> Discover the
               hidden gems of the Northeast's lakes, rivers, and coastlines. Our
               community members generously share their favorite fishing spots,
               hot fishing reports, and insider knowledge to help you make the
               most of your fishing trips.
             </li>
-            <li>
+            <li className="sales-list-item">
               <strong>Learn and Improve:</strong> Enhance your fishing skills
               and knowledge through our vast collection of articles, tutorials,
               and guides. From casting techniques to lure selection, our experts
               cover a wide range of topics to help you become a more successful
               angler.
             </li>
-            <li>
+            <li className="sales-list-item">
               <strong>Showcase Your Catches:</strong> Share your proudest
               catches with the community and get recognized for your fishing
               achievements. From trophy catches to unique species, our members
               love celebrating each other's fishing triumphs.
             </li>
-            <li>
+            <li className="sales-list-item">
               <strong>Participate in Exciting Events and Contests:</strong> Get
               involved in our thrilling fishing events, competitions, and
               challenges. Test your skills, compete against other anglers, and
               win exciting prizes that will elevate your fishing experience to
               new heights.
             </li>
-            <li>
+            <li className="sales-list-item">
               <strong>Stay Updated with Fishing News:</strong> Stay informed
               about the latest fishing trends, regulations, and news impacting
               the Northeast fishing community. Our dedicated news section keeps

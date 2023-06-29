@@ -20,7 +20,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const handleProfileClick = () => {
-    navigate("/profile/:id");
+    navigate("/profile");
   };
 
   const handleLogout = async () => {

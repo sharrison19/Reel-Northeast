@@ -1,58 +1,92 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const State = ({ states }) => {
+  const navigate = useNavigate();
+
   const { id } = useParams();
   const state = states.find((state) => state.id === id);
   const [threads, setThreads] = useState([]);
+  const [selectedThread, setSelectedThread] = useState(null);
 
-  // Simulating fetching related threads from the backend
+  const fetchThreads = async () => {
+    try {
+      const response = await fetch(`/forum/search/${state.name}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch threads");
+      }
+      const data = await response.json();
+      setThreads(data);
+    } catch (error) {
+      console.error("Error fetching threads:", error);
+      setThreads([]);
+    }
+  };
+
+  const handleThread = (thread) => {
+    navigate("/thread", { state: thread });
+  };
   useEffect(() => {
-    // Simulated API call delay
-    const delay = setTimeout(() => {
-      // Simulated fetched threads data
-      const fetchedThreads = [
-        {
-          id: 1,
-          title: `Exploring the Best Fishing Spots in ${state.name}`,
-          content: `I am looking for the Best Fishing Spots in ${state.name}, does anyone have any suggestions?`,
-        },
-        {
-          id: 2,
-          title: `What is your favorite species to target in ${state.name}?`,
-          content: `In ${state.name}, I love to fish for Largemouth Bass! What do you fish for?`,
-        },
-        {
-          id: 3,
-          title: `Does anyone want to take my boat out with me in${state.name}? Let me know!`,
-          content:
-            "I have a Bass Boat and looking to fish with someone. My boats name is Reel Pursuit!",
-        },
-      ];
-
-      setThreads(fetchedThreads);
-    }, 1000);
-
-    return () => clearTimeout(delay);
+    fetchThreads();
   }, [state.name]);
+
+  const sortedThreads = threads.sort((a, b) => {
+    const aDate = new Date(a.time);
+    const bDate = new Date(b.time);
+
+    return bDate.getTime() - aDate.getTime();
+  });
+
+  const recentThreads = sortedThreads.slice(0, 6);
 
   return (
     <div className="state-container">
       <h2 className="state-header">{state.name}</h2>
-      <p className="state-description">{state.description}</p>
-
-      <h3>Threads related to {state.name}:</h3>
-      {threads.length ? (
+      <div className="state-description">{state.description}</div>
+      <h3>Most Recent Threads Related to {state.name}:</h3>
+      {recentThreads.length === 0 ? (
+        <p className="no-threads-message">
+          No threads match your search criteria. Be the first one to start a
+          conversation about {state.name}
+        </p>
+      ) : (
         <ul className="state-thread-list">
-          {threads.map((thread) => (
-            <li key={thread.id} className="state-thread-item">
-              <h4>{thread.title}</h4>
-              <p>{thread.content}</p>
+          {recentThreads.map((thread, index) => (
+            <li
+              key={index}
+              onClick={() => handleThread(thread)}
+              className={`state-thread-item ${
+                selectedThread === thread.id ? "selected" : ""
+              }`}
+            >
+              <h4 className="state-thread-title">{thread.title}</h4>
+              <div className="state-thread-info">
+                <div className="state-thread-info-item">
+                  Author:{" "}
+                  <span className="state-thread-author">{thread.author}</span>
+                </div>
+                <div className="state-thread-info-item">
+                  Date: <span className="state-thread-date">{thread.date}</span>
+                </div>
+              </div>
+              <div className="state-thread-info">
+                <div className="state-thread-info-item">
+                  Total Comments:{" "}
+                  <span className="state-thread-total-comments">
+                    {thread.totalComments}
+                  </span>
+                </div>
+                <div className="state-thread-info-item">
+                  Total Views:{" "}
+                  <span className="state-thread-total-views">
+                    {thread.totalViews}
+                  </span>
+                </div>
+              </div>
+              <p className="state-thread-content">{thread.content}</p>
             </li>
           ))}
         </ul>
-      ) : (
-        <p>Loading threads...</p>
       )}
     </div>
   );

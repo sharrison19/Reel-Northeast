@@ -1,12 +1,9 @@
 import React, { createContext, useState } from "react";
 import axios from "axios";
 
-// Create the AuthContext
 export const AuthContext = createContext();
 
-// Create the AuthProvider component
 export const AuthProvider = ({ children }) => {
-  // Initialize the authentication state
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -45,18 +42,14 @@ export const AuthProvider = ({ children }) => {
     }
   );
 
-  // Function to handle authentication
   const handleAuthentication = async (userCredentials) => {
     setLoading(true);
     setError(null);
 
     try {
-      // Make an API call to authenticate the user
       const response = await axios.post("/login", userCredentials);
 
-      // Check the response status or data to determine if authentication was successful
       if (response.status === 200 && response.data.token) {
-        // Authentication successful
         setIsAuthenticated(true);
         setUsername(userCredentials.username);
         setToken(response.data.token);
@@ -64,9 +57,8 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem("username", userCredentials.username);
         axios.defaults.headers.common[
           "Authorization"
-        ] = `Bearer ${response.data.token}`; // Set the Authorization header for all future requests
+        ] = `Bearer ${response.data.token}`;
       } else {
-        // Authentication failed
         setIsAuthenticated(false);
         setUsername("");
         setToken(null);
@@ -74,7 +66,6 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem("username", null);
       }
     } catch (error) {
-      // Handle any error that occurred during the API call
       console.error("Authentication failed:", error);
       setIsAuthenticated(false);
       setUsername("");
@@ -87,19 +78,15 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Function to handle signup
   const handleSignup = async (userCredentials) => {
     setLoading(true);
     setError(null);
 
     try {
-      // Make an API call to sign up the user
       const response = await axios.post("/signup", userCredentials);
       console.log(response);
 
-      // Check the response status or data to determine if signup was successful
       if (response.status === 201 && response.data.token) {
-        // Signup successful
         setIsAuthenticated(true);
         setUsername(userCredentials.username);
         setToken(response.data.token);
@@ -107,9 +94,8 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem("username", userCredentials.username);
         axios.defaults.headers.common[
           "Authorization"
-        ] = `Bearer ${response.data.token}`; // Set the Authorization header for all future requests
+        ] = `Bearer ${response.data.token}`;
       } else {
-        // Signup failed
         setIsAuthenticated(false);
         setUsername("");
         setToken(null);
@@ -117,7 +103,6 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem("username", null);
       }
     } catch (error) {
-      // Handle any error that occurred during the API call
       console.error("Signup failed:", error);
       setIsAuthenticated(false);
       setUsername("");
@@ -130,31 +115,25 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Function to handle logout
   const handleLogout = async () => {
     setLoading(true);
     setError(null);
 
     try {
-      // Make an API call to log out the user
       const response = await axios.post("/logout");
 
-      // Check the response status to determine if logout was successful
       if (response.status === 200) {
-        // Logout successful
         setIsAuthenticated(false);
         setUsername("");
         setToken(null);
         localStorage.setItem("username", null);
         localStorage.setItem("token", null);
-        delete axios.defaults.headers.common["Authorization"]; // Remove the Authorization header for future requests
+        delete axios.defaults.headers.common["Authorization"];
       } else {
-        // Logout failed
         console.error("Logout failed:", response.data);
         setError("Logout failed. Please try again.");
       }
     } catch (error) {
-      // Handle any error that occurred during the API call
       console.error("Logout failed:", error);
       setError("Logout failed. Please try again.");
     } finally {
@@ -162,7 +141,6 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Provide the authentication state and functions to child components
   return (
     <AuthContext.Provider
       value={{

@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "./AuthContext";
 
 const Home = () => {
+  const { isAuthenticated } = useContext(AuthContext);
+
   return (
     <div className="home-container">
       <h1 className="slogan">
@@ -19,9 +22,11 @@ const Home = () => {
         fishing enthusiasts, and discover the best spots to reel in your next
         big catch.
       </p>
-      <Link to="/signup">
-        <button className="get-started-btn">Get Started</button>
-      </Link>
+      {!isAuthenticated && (
+        <Link to="/signup">
+          <button className="get-started-btn">Get Started</button>
+        </Link>
+      )}
     </div>
   );
 };

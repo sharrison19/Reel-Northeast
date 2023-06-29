@@ -3,13 +3,7 @@ import { AuthContext } from "./AuthContext";
 import axios from "axios";
 import getFormattedDate from "../utility/formattedDate";
 
-const ReplyComment = ({
-  threadId,
-  commentId,
-  commentUserId,
-  parentCommentId,
-  onCommentSubmit,
-}) => {
+const ReplyComment = ({ threadId, parentCommentId, onCommentSubmit }) => {
   const [content, setContent] = useState("");
   const auth = useContext(AuthContext);
 
@@ -22,14 +16,14 @@ const ReplyComment = ({
     }
 
     const newReplyComment = {
-      author: auth.username,
+      author: auth.userId,
       content,
       date: getFormattedDate(),
     };
 
     try {
       const response = await axios.post(
-        `http://127.0.0.1:5000/forum/${threadId}/comments/${commentId}/reply`,
+        `http://127.0.0.1:5000/forum/${threadId}/comments/${parentCommentId}/reply`,
         newReplyComment
       );
 
@@ -39,7 +33,7 @@ const ReplyComment = ({
         throw new Error("Failed to create reply comment");
       }
 
-      onCommentSubmit(newReplyComment);
+      onCommentSubmit(response.data.comments);
 
       // Clear input fields
       setContent("");

@@ -51,14 +51,14 @@ const Species = () => {
       category: "freshwater",
       description:
         "Trout are prized freshwater fish found abundantly in the Northeastern region. With their vibrant colors and elusive nature, they are a favorite target for anglers. Trout species like Rainbow Trout, Brown Trout, and Brook Trout thrive in cold, clear streams and lakes, making them excellent targets for fly fishing enthusiasts. These beautiful fish are known for their agility, striking patterns, and delicious taste. Whether you're wading in a remote mountain stream or casting from the banks of a serene lake, pursuing trout in the Northeast promises unforgettable angling experiences and the opportunity to reel in these coveted game fish.",
-      image: require("../images/carp.jpg"),
+      image: require("../images/carp2.jpg"),
     },
     {
       name: "Catfish",
       category: "freshwater",
       description:
         "Catfish, specifically the Channel Catfish (Ictalurus punctatus), are common freshwater fish in the Northeast. They have a cylindrical body with barbels around their mouth. Growing over 3 feet long and weighing more than 40 pounds, they are known for scavenging and feeding on a variety of food including fish, insects, and plants. Anglers target catfish using natural baits and lures, and they provide a thrilling fight when hooked. Catfish are prized for their delicious flesh, making them a popular catch in the Northeast.",
-      image: require("../images/catfish.jpg"),
+      image: require("../images/catfish2.jpg"),
     },
     {
       name: "Chain Pickerel",
@@ -122,7 +122,7 @@ const Species = () => {
       category: "freshwater",
       description:
         "Largemouth Bass (Micropterus salmoides) is a popular freshwater game fish found in the Northeast. Known for their aggressive nature and impressive size, they are prized by anglers. Largemouth Bass have a distinctive elongated body, olive-green coloration, and a large mouth with a protruding lower jaw. They prefer calm, weedy areas in lakes, ponds, and rivers. Largemouth Bass are opportunistic predators, feeding on a variety of prey including fish, crayfish, and insects. Catching a trophy-sized Largemouth Bass provides an exhilarating experience for anglers in the Northeast.",
-      image: require("../images/largemouthbass.jpg"),
+      image: require("../images/largemouthbass2.jpg"),
     },
     {
       name: "Mackerel",
@@ -171,7 +171,7 @@ const Species = () => {
       category: "freshwater",
       description:
         "Salmon, a prized species in the Northeast, is renowned for its strength and remarkable migratory journey. These magnificent fish, such as the Atlantic salmon, are known for their silver coloration and streamlined body. In the Northeast, they navigate their way from the ocean to freshwater rivers and streams to spawn. Anglers eagerly await the arrival of salmon, as they offer an exhilarating challenge and delicious reward. Whether fly fishing in a remote river or trolling along the coastline, pursuing salmon in the Northeast is an unforgettable experience for passionate anglers.",
-      image: require("../images/salmon.jpg"),
+      image: require("../images/salmon2.jpg"),
     },
     {
       name: "Scup",
@@ -185,7 +185,7 @@ const Species = () => {
       category: "freshwater",
       description:
         "Smallmouth Bass (Micropterus dolomieu) is a highly sought-after freshwater game fish in the Northeast region. With their distinctive bronze coloration and vertical dark stripes, Smallmouth Bass are known for their feisty nature and acrobatic jumps when hooked. They inhabit clear, rocky streams, rivers, and lakes. Smallmouth Bass are known to be skilled predators, feeding on crayfish, minnows, and insects. Anglers enjoy the challenge of catching Smallmouth Bass due to their strength and agility. Landing a Smallmouth Bass provides an exciting angling experience and a rewarding catch for Northeastern fishermen.",
-      image: require("../images/smallmouth.jpg"),
+      image: require("../images/smallmouth2.jpg"),
     },
     {
       name: "Striped Bass",
@@ -245,7 +245,7 @@ const Species = () => {
   return (
     <div>
       <h1 className="species-page-header">Fish Species of the Northeast</h1>
-      <div>
+      <div className="species-select-container">
         <select
           className="species-select"
           value={selectedSpeciesCategory}

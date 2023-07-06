@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "./AuthContext";
 
@@ -22,11 +22,31 @@ const Login = () => {
     setRememberMe(!rememberMe);
   };
 
+  useEffect(() => {
+    const rememberedUsername = localStorage.getItem("rememberedUsername");
+    const rememberedPassword = localStorage.getItem("rememberedPassword");
+
+    if (rememberedUsername && rememberedPassword) {
+      setUsername(rememberedUsername);
+      setPassword(rememberedPassword);
+      setRememberMe(true);
+    }
+  }, []);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
       auth.handleAuthentication({ username, password });
+
+      if (rememberMe) {
+        localStorage.setItem("rememberedUsername", username);
+        localStorage.setItem("rememberedPassword", password);
+      } else {
+        localStorage.removeItem("rememberedUsername");
+        localStorage.removeItem("rememberedPassword");
+      }
+
       navigate("/forum");
     } catch (err) {
       console.error(err);

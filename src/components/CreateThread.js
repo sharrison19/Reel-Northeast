@@ -71,16 +71,17 @@ const CreateThread = ({ onThreadSubmit, onClose }) => {
   const categoryOptions = [
     "Bait and Tackle",
     "Bass Fishing",
+    "Boating",
     "Conservation",
-    "Deep Sea Fishing",
+    "Deep Sea",
     "Fly Fishing",
-    "Freshwater Fishing",
+    "Freshwater",
     "Fishing Gear",
     "Fishing Reports",
     "Ice Fishing",
     "Kayak Fishing",
-    "Saltwater Fishing",
-    "Surf Casting Fishing",
+    "Saltwater",
+    "Surf Casting",
     "Tips and Tricks",
     "Trout Fishing",
   ];
@@ -108,10 +109,13 @@ const CreateThread = ({ onThreadSubmit, onClose }) => {
               id="content"
               value={content}
               onChange={(e) => setContent(e.target.value)}
+              className="create-thread-content-area"
             ></textarea>
           </div>
           <div className="form-group">
-            <label htmlFor="categories">Categories:</label>
+            <label className="modal-categories-label" htmlFor="categories">
+              Categories:
+            </label>
             <div className="categories-container">
               {categoryOptions.map((category) => (
                 <div className="categories-checkbox" key={category}>

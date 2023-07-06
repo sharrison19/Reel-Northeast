@@ -1,45 +1,42 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Image } from "cloudinary-react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { FaTwitter, FaInstagram, FaFacebook, FaYoutube } from "react-icons/fa";
+import UploadWidget from "./UploadWidget";
+import { AuthContext } from "./AuthContext";
 
-const Profile = ({
-  username = "",
-  name = "",
-  state = "",
-  biography = "",
-  profilePicture = "",
-  email = "",
-  socialMediaLinks = [
-    {
-      url: "facebook.com/johnsmith",
-      platform: "Facebook",
-      icon: <FaFacebook />,
-    },
-    {
-      url: "instagram.com/johnsmith",
-      platform: "Instagram",
-      icon: <FaInstagram />,
-    },
-    { url: "twitter.com/johnsmith", platform: "Twitter", icon: <FaTwitter /> },
-    { url: "youtube.com/johnsmith", platform: "YouTube", icon: <FaYoutube /> },
-  ],
-  isEditable = true,
-  onEditProfile,
-}) => {
+const Profile = ({ onEditProfile, profilePicture = "", isEditable = true }) => {
   const [editableProperties, setEditableProperties] = useState({
-    username,
-    name,
-    state,
-    biography,
-    email,
+    username: "",
+    name: "",
+    state: "",
+    biography: "",
+    email: "",
+    socialMediaLinks: [
+      {
+        url: "",
+        platform: "facebook",
+      },
+      {
+        url: "",
+        platform: "instagram",
+      },
+      { url: "", platform: "twitter" },
+      { url: "", platform: "youtube" },
+    ],
+    profilePicture: profilePicture || "",
   });
-  const [editableSocialMediaLinks, setEditableSocialMediaLinks] = useState([
-    ...socialMediaLinks,
-  ]);
+
+  const auth = useContext(AuthContext);
+
+  const icons = [];
+  icons["facebook"] = <FaFacebook />;
+  icons["twitter"] = <FaTwitter />;
+  icons["instagram"] = <FaInstagram />;
+  icons["youtube"] = <FaYoutube />;
+
   const [isEditing, setIsEditing] = useState(false);
-  const [uploadedImage, setUploadedImage] = useState(profilePicture);
   const { id } = useParams();
 
   useEffect(() => {
@@ -58,24 +55,24 @@ const Profile = ({
       console.log(profileData);
       setEditableProperties(profileData);
     } catch (error) {
-      console.error("Error fetching profile data:", error);
+      auth.setError("Error fetching profile data");
     }
   };
 
-  const updateProfileData = async () => {
-    try {
-      // Make an API call to update the profile data
-      await axios.put("/profile", editableProperties); // Replace with your backend API endpoint for updating profile data
-    } catch (error) {
-      console.error("Error updating profile:", error);
-    }
-  };
-
-  const handleSocialMediaLinkChange = (index, e) => {
+  const handleSocialMediaLinkChange = (e) => {
     const { name, value } = e.target;
-    const updatedLinks = [...editableSocialMediaLinks];
-    updatedLinks[index][name] = value;
-    setEditableSocialMediaLinks(updatedLinks);
+
+    const updatedLinks = editableProperties.socialMediaLinks.map((link) => {
+      if (link.platform === name) {
+        link.url = value;
+      }
+      return link;
+    });
+
+    setEditableProperties({
+      ...editableProperties,
+      socialMediaLinks: updatedLinks,
+    });
   };
 
   const handleInputChange = (e) => {
@@ -91,78 +88,67 @@ const Profile = ({
   };
 
   const handleSaveClick = async () => {
+    let url;
+    try {
+      editableProperties.socialMediaLinks.map((link) => {
+        url = new URL(link.url);
+        return link;
+      });
+    } catch (error) {
+      auth.setError("Social media link URL invalid");
+      return;
+    }
+
     setIsEditing(false);
 
     try {
       const response = await axios.put(`/profile`, editableProperties);
       console.log(response.data);
-
-      if (uploadedImage !== profilePicture) {
-        // Handle the profile picture update here
-      }
     } catch (error) {
       console.error("Error updating profile:", error);
     }
   };
 
-  const handleImageUpload = async (e) => {
-    const file = e.target.files[0];
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("upload_preset", "Reel_Northeast");
-
-    try {
-      const response = await axios.post(
-        "https://api.cloudinary.com/v1_1/reel-northeast-cloud/image/upload",
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
-      setUploadedImage(response.data.secure_url);
-      // Update the profile picture URL in the editable properties
+  const handleImageUpload = (error, result) => {
+    if (!error && result && result.event === "success") {
+      const imageUrl = result.info.path;
       setEditableProperties((prevProps) => ({
         ...prevProps,
-        profilePicture: response.data.secure_url,
+        profilePicture: imageUrl,
       }));
-    } catch (error) {
-      console.error("Error uploading image to Cloudinary:", error);
+
+      axios
+        .put("/profile", { ...editableProperties, profilePicture: imageUrl })
+        .then((response) => {
+          console.log("Profile picture updated successfully");
+        })
+        .catch((error) => {
+          console.error("Error updating profile picture", error);
+        });
     }
   };
+  console.log(editableProperties);
 
   return (
     <div className="profile-background">
       <div className={`profile-container ${isEditing ? "is-editing" : ""}`}>
-        <div className="profile-picture">
-          {isEditing ? (
-            <div className="file-upload-container">
-              <Image
-                cloudName="reel-northeast-cloud"
-                publicId={uploadedImage || "defaultprofilepicture.jpg"}
-                width="150"
-                height="150"
-                crop="fill"
-              />
-              <label htmlFor="file-upload" className="file-upload-button">
-                Upload Profile Picture
-              </label>
-              <input
-                id="file-upload"
-                type="file"
-                className="file-input"
-                onChange={handleImageUpload}
-              />
-            </div>
-          ) : (
-            <Image
-              cloudName="reel-northeast-cloud"
-              publicId={uploadedImage || "defaultprofilepicture.jpg"}
-              width="150"
-              height="150"
-              crop="fill"
-            />
-          )}
+        <div className="profile-picture-container">
+          <Image
+            cloudName="reel-northeast-cloud"
+            publicId={
+              editableProperties.profilePicture || "defaultprofilepicture.jpg"
+            }
+            width="150"
+            height="150"
+            crop="fill"
+          />
         </div>
+
+        {isEditable && isEditing && (
+          <div className="upload-widget-container">
+            <UploadWidget onImageUpload={handleImageUpload} />
+          </div>
+        )}
 
         <div className="profile-info">
           <div className={"profile-username"}>
@@ -215,6 +201,9 @@ const Profile = ({
                     <option value="Maine">Maine</option>
                     <option value="Massachusetts">Massachusetts</option>
                     <option value="New Hampshire">New Hampshire</option>
+                    <option value="New Jersey">New Jersey</option>
+                    <option value="New York">New York</option>
+                    <option value="Pennsylvania">Pennsylvania</option>
                     <option value="Rhode Island">Rhode Island</option>
                     <option value="Vermont">Vermont</option>
                   </select>
@@ -241,35 +230,58 @@ const Profile = ({
               )}
             </div>
             <p>Follow me:</p>
-            <div className="social-media-links">
-              {editableSocialMediaLinks.map((link, index) => (
-                <div
-                  key={index}
-                  className={`social-media-link ${link.platform.toLowerCase()}`}
-                >
-                  {isEditing ? (
+            {isEditing ? (
+              <div
+                className={`social-media-links ${
+                  isEditing ? "is-editing" : ""
+                }`}
+              >
+                {editableProperties.socialMediaLinks.map((link, index) => (
+                  <div
+                    key={index}
+                    className={`social-media-link-${link.platform.toLowerCase()} ${
+                      link.isEditing ? "is-editing" : ""
+                    }`}
+                  >
                     <div>
-                      <label htmlFor={`url-input-${index}`}>URL:</label>
+                      <label htmlFor={`url-input-${link.platform}`}>
+                        {link.platform}:
+                      </label>
                       <input
-                        id={`url-input-${index}`}
+                        id={`url-input-${link.platform}`}
                         type="text"
-                        name="url"
+                        name={link.platform}
                         value={link.url}
-                        onChange={(e) => handleSocialMediaLinkChange(index, e)}
+                        onChange={(e) => handleSocialMediaLinkChange(e)}
                       />
                     </div>
-                  ) : (
-                    <a
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {link.icon} {link.platform}
-                    </a>
-                  )}
-                </div>
-              ))}
-            </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="social-media-links">
+                {editableProperties.socialMediaLinks.map((link, index) => (
+                  <>
+                    {link?.url !== "" && (
+                      <div
+                        key={index}
+                        className={`social-media-link ${link.platform.toLowerCase()} ${
+                          link.isEditing ? "is-editing" : ""
+                        }`}
+                      >
+                        <a
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {icons[link.platform]} {link.platform}
+                        </a>
+                      </div>
+                    )}
+                  </>
+                ))}
+              </div>
+            )}
           </div>
           {isEditable && (
             <div className="profile-edit-controls">

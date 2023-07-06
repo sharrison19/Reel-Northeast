@@ -43,7 +43,9 @@ const State = ({ states }) => {
     <div className="state-container">
       <h2 className="state-header">{state.name}</h2>
       <div className="state-description">{state.description}</div>
-      <h3>Most Recent Threads Related to {state.name}:</h3>
+      <h3 className="most-recent-header">
+        Most Recent Threads Related to {state.name}:
+      </h3>
       {recentThreads.length === 0 ? (
         <p className="no-threads-message">
           No threads match your search criteria. Be the first one to start a

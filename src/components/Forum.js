@@ -18,8 +18,25 @@ const Forum = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
   const [selectedFilter, setSelectedFilter] = useState("newest");
+  const [showCategories, setShowCategories] = useState(false);
+
+  const categories = [
+    "Bait and Tackle",
+    "Bass Fishing",
+    "Deep Sea Fishing",
+    "Fishing Conservation",
+    "Fishing Gear",
+    "Fishing Reports",
+    "Fishing Tips and Tricks",
+    "Fly Fishing",
+    "Freshwater Fishing",
+    "Ice Fishing",
+    "Kayak Fishing",
+    "Saltwater Fishing",
+    "Surf Casting Fishing",
+    "Trout Fishing",
+  ];
 
   const handleThreadSubmit = (newThread) => {
     setThreads([...threads, newThread]);
@@ -33,10 +50,29 @@ const Forum = () => {
     setIsModalOpen(false);
   };
 
+  const handleToggleCategories = () => {
+    setShowCategories((prevState) => !prevState); // Toggle showCategories state
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setShowCategories(window.innerWidth > 735); // Set showCategories based on window width
+    };
+
+    handleResize(); // Call handleResize on initial render
+
+    window.addEventListener("resize", handleResize); // Add event listener for resize
+
+    return () => {
+      window.removeEventListener("resize", handleResize); // Clean up event listener on unmount
+    };
+  }, []);
+
   const handleSearch = () => {
     axios
       .get(`/forum/search/${searchQuery}`)
       .then((response) => {
+        console.log(response);
         setSearchResults(response.data);
       })
       .catch((error) => {
@@ -89,11 +125,11 @@ const Forum = () => {
           console.error("Failed to increment view count in the forum:", error);
         });
     });
-  }, [searchResults, viewedThreadsForum]);
+  }, [viewedThreadsForum]);
 
   useEffect(() => {
     if (searchQuery === "") {
-      setSearchResults([]);
+      setSearchResults(null);
     }
   }, [searchQuery]);
 
@@ -103,7 +139,7 @@ const Forum = () => {
     }
   };
   const filteredThreads =
-    searchResults.length > 0
+    searchResults !== null
       ? searchResults
       : threads
           .filter((thread) => {
@@ -135,177 +171,84 @@ const Forum = () => {
 
   return (
     <div className="forum-page">
-      <div className="top-row">
-        <div className="thread-btn-container">
-          <button className="create-a-thread-btn" onClick={handleOpenModal}>
-            Create a Thread
-          </button>
+      {window.innerWidth < 526 ? (
+        <div className="top-row">
+          <div className="search-container">
+            <input
+              placeholder="Search"
+              className="search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={handleKeyDown}
+            />
+            <BsSearch className="search-icon" onClick={handleSearch} />
+          </div>
+          <div className="thread-btn-container">
+            <button className="create-a-thread-btn" onClick={handleOpenModal}>
+              Create a Thread
+            </button>
+          </div>
+          {isModalOpen && (
+            <CreateThread
+              onThreadSubmit={handleThreadSubmit}
+              onClose={handleCloseModal}
+              selectedCategories={selectedCategories}
+            />
+          )}
         </div>
-        {isModalOpen && (
-          <CreateThread
-            onThreadSubmit={handleThreadSubmit}
-            onClose={handleCloseModal}
-            selectedCategories={selectedCategories}
-          />
-        )}
-        <div className="search-container">
-          <input
-            placeholder="Search"
-            className="search"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            onKeyDown={handleKeyDown}
-          />
-
-          <BsSearch className="search-icon" onClick={handleSearch} />
+      ) : (
+        <div className="top-row">
+          <div className="thread-btn-container">
+            <button className="create-a-thread-btn" onClick={handleOpenModal}>
+              Create a Thread
+            </button>
+          </div>
+          {isModalOpen && (
+            <CreateThread
+              onThreadSubmit={handleThreadSubmit}
+              onClose={handleCloseModal}
+              selectedCategories={selectedCategories}
+            />
+          )}
+          <div className="search-container">
+            <input
+              placeholder="Search"
+              className="search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={handleKeyDown}
+            />
+            <BsSearch className="search-icon" onClick={handleSearch} />
+          </div>
         </div>
-      </div>
+      )}
       <div className="columns">
         <div className="left-column">
           <div>
             <h1 className="categories-title">Categories</h1>
-            <ul className="categories-list">
-              <li
-                className={`category-item ${
-                  selectedCategories.includes("Fly Fishing")
-                    ? "selected-category"
-                    : ""
-                }`}
-                onClick={() => handleCategoryFilter("Fly Fishing")}
-              >
-                Fly Fishing
-              </li>
-              <li
-                className={`category-item ${
-                  selectedCategories.includes("Freshwater Fishing")
-                    ? "selected-category"
-                    : ""
-                }`}
-                onClick={() => handleCategoryFilter("Freshwater Fishing")}
-              >
-                Freshwater Fishing
-              </li>
-              <li
-                className={`category-item ${
-                  selectedCategories.includes("Saltwater Fishing")
-                    ? "selected-category"
-                    : ""
-                }`}
-                onClick={() => handleCategoryFilter("Saltwater Fishing")}
-              >
-                Saltwater Fishing
-              </li>
-              <li
-                className={`category-item ${
-                  selectedCategories.includes("Bass Fishing")
-                    ? "selected-category"
-                    : ""
-                }`}
-                onClick={() => handleCategoryFilter("Bass Fishing")}
-              >
-                Bass Fishing
-              </li>
-              <li
-                className={`category-item ${
-                  selectedCategories.includes("Trout Fishing")
-                    ? "selected-category"
-                    : ""
-                }`}
-                onClick={() => handleCategoryFilter("Trout Fishing")}
-              >
-                Trout Fishing
-              </li>
-              <li
-                className={`category-item ${
-                  selectedCategories.includes("Deep Sea Fishing")
-                    ? "selected-category"
-                    : ""
-                }`}
-                onClick={() => handleCategoryFilter("Deep Sea Fishing")}
-              >
-                Deep Sea Fishing
-              </li>
-              <li
-                className={`category-item ${
-                  selectedCategories.includes("Ice Fishing")
-                    ? "selected-category"
-                    : ""
-                }`}
-                onClick={() => handleCategoryFilter("Ice Fishing")}
-              >
-                Ice Fishing
-              </li>
-              <li
-                className={`category-item ${
-                  selectedCategories.includes("Kayak Fishing")
-                    ? "selected-category"
-                    : ""
-                }`}
-                onClick={() => handleCategoryFilter("Kayak Fishing")}
-              >
-                Kayak Fishing
-              </li>
-              <li
-                className={`category-item ${
-                  selectedCategories.includes("Surf Casting Fishing")
-                    ? "selected-category"
-                    : ""
-                }`}
-                onClick={() => handleCategoryFilter("Surf Casting Fishing")}
-              >
-                Surf Casting Fishing
-              </li>
-              <li
-                className={`category-item ${
-                  selectedCategories.includes("Bait and Tackle")
-                    ? "selected-category"
-                    : ""
-                }`}
-                onClick={() => handleCategoryFilter("Bait and Tackle")}
-              >
-                Bait and Tackle
-              </li>
-              <li
-                className={`category-item ${
-                  selectedCategories.includes("Fishing Gear")
-                    ? "selected-category"
-                    : ""
-                }`}
-                onClick={() => handleCategoryFilter("Fishing Gear")}
-              >
-                Fishing Gear
-              </li>
-              <li
-                className={`category-item ${
-                  selectedCategories.includes("Fishing Reports")
-                    ? "selected-category"
-                    : ""
-                }`}
-                onClick={() => handleCategoryFilter("Fishing Reports")}
-              >
-                Fishing Reports
-              </li>
-              <li
-                className={`category-item ${
-                  selectedCategories.includes("Fishing Tips and Tricks")
-                    ? "selected-category"
-                    : ""
-                }`}
-                onClick={() => handleCategoryFilter("Fishing Tips and Tricks")}
-              >
-                Fishing Tips and Tricks
-              </li>
-              <li
-                className={`category-item ${
-                  selectedCategories.includes("Fishing Conservation")
-                    ? "selected-category"
-                    : ""
-                }`}
-                onClick={() => handleCategoryFilter("Fishing Conservation")}
-              >
-                Fishing Conservation
-              </li>
-            </ul>
+            <button
+              className="toggle-categories-btn"
+              onClick={handleToggleCategories}
+            >
+              {showCategories ? "Hide Categories" : "Show Categories"}
+            </button>
+            {showCategories && (
+              <ul className="categories-list">
+                {categories.sort().map((category) => (
+                  <li
+                    key={category}
+                    className={`category-item ${
+                      selectedCategories.includes(category)
+                        ? "selected-category"
+                        : ""
+                    }`}
+                    onClick={() => handleCategoryFilter(category)}
+                  >
+                    {category}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
 
@@ -358,14 +301,14 @@ const Forum = () => {
                       <span className="forum-thread-date">{thread.date}</span>
                     </div>
                   </div>
-                  <div className="forum-thread-info">
-                    <div className="forum-thread-info-item">
+                  <div className="forum-thread-stats">
+                    <div className="forum-thread-stats-item">
                       Total Comments:{" "}
                       <span className="forum-thread-total-comments">
                         {thread.totalComments}
                       </span>
                     </div>
-                    <div className="forum-thread-info-item">
+                    <div className="forum-thread-stats-item">
                       Total Views:{" "}
                       <span className="forum-thread-total-views">
                         {thread.totalViews}

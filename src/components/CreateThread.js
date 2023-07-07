@@ -28,12 +28,18 @@ const CreateThread = ({ onThreadSubmit, onClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!title || !content) {
-      alert("Please fill in all the fields");
+    if (!auth.isAuthenticated) {
+      auth.setError("Please log in to create a thread");
       return;
     }
 
-    // Create new thread object
+    if (!title || !content || selectedCategories.length === 0) {
+      auth.setError(
+        "Please fill in all the fields and select at least one category"
+      );
+      return;
+    }
+
     const newThread = {
       title,
       author: auth.username,
@@ -54,7 +60,6 @@ const CreateThread = ({ onThreadSubmit, onClose }) => {
       );
 
       if (response.status === 201) {
-        console.log(response);
         onThreadSubmit(response.data);
         setTitle("");
         setContent("");

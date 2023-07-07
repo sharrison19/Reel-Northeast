@@ -2,7 +2,6 @@
   "name": "reelnortheast",
   "version": "0.1.0",
   "proxy": "http://localhost:5000",
-  "homepage": "https://sharrison19.github.io/Reel-Northeast",
   "private": true,
   "dependencies": {
     "@cloudinary/react": "^1.11.2",

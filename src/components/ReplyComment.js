@@ -23,7 +23,7 @@ const ReplyComment = ({ threadId, parentCommentId, onCommentSubmit }) => {
 
     try {
       const response = await axios.post(
-        `http://127.0.0.1:5000/forum/${threadId}/comments/${parentCommentId}/reply`,
+        `/forum/${threadId}/comments/${parentCommentId}/reply`,
         newReplyComment
       );
 
@@ -35,7 +35,6 @@ const ReplyComment = ({ threadId, parentCommentId, onCommentSubmit }) => {
 
       onCommentSubmit(response.data.comments);
 
-      // Clear input fields
       setContent("");
     } catch (error) {
       console.error(error);
@@ -44,7 +43,6 @@ const ReplyComment = ({ threadId, parentCommentId, onCommentSubmit }) => {
   };
 
   const handleCancel = () => {
-    // Reset the input fields and cancel the reply
     setContent("");
     onCommentSubmit(null);
   };
@@ -65,7 +63,11 @@ const ReplyComment = ({ threadId, parentCommentId, onCommentSubmit }) => {
           <button type="submit" className="reply-comment-submit">
             Submit
           </button>
-          <button className="reply-comment-cancel" onClick={handleCancel}>
+          <button
+            type="button"
+            className="reply-comment-cancel"
+            onClick={handleCancel}
+          >
             Cancel
           </button>
         </div>

@@ -47,9 +47,9 @@ const Profile = ({ onEditProfile, profilePicture = "", isEditable = true }) => {
     try {
       let response;
       if (id) {
-        response = await axios.get(`/profile/${id}`);
+        response = await axios.get(`/user-profile/${id}`);
       } else {
-        response = await axios.get("/profile");
+        response = await axios.get("/user-profile");
       }
       const profileData = response.data;
       console.log(profileData);
@@ -91,7 +91,9 @@ const Profile = ({ onEditProfile, profilePicture = "", isEditable = true }) => {
     let url;
     try {
       editableProperties.socialMediaLinks.map((link) => {
-        url = new URL(link.url);
+        if (link.url) {
+          url = new URL(link.url);
+        }
         return link;
       });
     } catch (error) {
@@ -102,7 +104,7 @@ const Profile = ({ onEditProfile, profilePicture = "", isEditable = true }) => {
     setIsEditing(false);
 
     try {
-      const response = await axios.put(`/profile`, editableProperties);
+      const response = await axios.put(`/user-profile`, editableProperties);
       console.log(response.data);
     } catch (error) {
       console.error("Error updating profile:", error);
@@ -118,7 +120,10 @@ const Profile = ({ onEditProfile, profilePicture = "", isEditable = true }) => {
       }));
 
       axios
-        .put("/profile", { ...editableProperties, profilePicture: imageUrl })
+        .put("/user-profile", {
+          ...editableProperties,
+          profilePicture: imageUrl,
+        })
         .then((response) => {
           console.log("Profile picture updated successfully");
         })
@@ -127,7 +132,6 @@ const Profile = ({ onEditProfile, profilePicture = "", isEditable = true }) => {
         });
     }
   };
-  console.log(editableProperties);
 
   return (
     <div className="profile-background">

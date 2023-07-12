@@ -54,10 +54,7 @@ const CreateThread = ({ onThreadSubmit, onClose }) => {
     };
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/forum",
-        newThread
-      );
+      const response = await axios.post("/forum", newThread);
 
       if (response.status === 201) {
         onThreadSubmit(response.data);

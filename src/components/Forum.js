@@ -51,20 +51,20 @@ const Forum = () => {
   };
 
   const handleToggleCategories = () => {
-    setShowCategories((prevState) => !prevState); // Toggle showCategories state
+    setShowCategories((prevState) => !prevState);
   };
 
   useEffect(() => {
     const handleResize = () => {
-      setShowCategories(window.innerWidth > 735); // Set showCategories based on window width
+      setShowCategories(window.innerWidth > 735);
     };
 
-    handleResize(); // Call handleResize on initial render
+    handleResize();
 
-    window.addEventListener("resize", handleResize); // Add event listener for resize
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener("resize", handleResize); // Clean up event listener on unmount
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 

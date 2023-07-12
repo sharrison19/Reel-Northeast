@@ -8,6 +8,7 @@ import Profile from "./Profile";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { faReply } from "@fortawesome/free-solid-svg-icons";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
 
 const Thread = () => {
   const location = useLocation();
@@ -19,19 +20,19 @@ const Thread = () => {
     author,
     content,
     date,
-    comments,
     totalComments,
     totalViews,
   } = thread;
 
   const [profileId, setProfileId] = useState(null);
-
   const [updatedComments, setUpdatedComments] = useState([]);
   const [activeReplyComment, setActiveReplyComment] = useState("");
   const [showCommentForm, setShowCommentForm] = useState(false);
 
   const handleCommentSubmit = (newComments) => {
-    setUpdatedComments(newComments);
+    if (newComments) {
+      setUpdatedComments(newComments);
+    }
     setActiveReplyComment("");
   };
 
@@ -39,36 +40,184 @@ const Thread = () => {
     setActiveReplyComment(commentId);
   };
 
-  const renderComment = (comment, index, nestingLevel = 0) => {
+  const handleCommentEdit = async (commentId) => {
+    const editComment = (comments) => {
+      return comments.map((comment) => {
+        if (comment._id === commentId) {
+          if (comment.author === auth.username) {
+            return {
+              ...comment,
+              isEditing: true,
+              originalContent: comment.content,
+            };
+          }
+        }
+
+        if (comment.replies && comment.replies.length > 0) {
+          const updatedReplies = editComment(comment.replies);
+          return {
+            ...comment,
+            replies: updatedReplies,
+          };
+        }
+
+        return comment;
+      });
+    };
+
+    const updatedCommentList = editComment(updatedComments);
+
+    try {
+      await axios.put(`/forum/${_id}/comments/${commentId}`);
+      setUpdatedComments(updatedCommentList);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleCommentSave = async (commentId, editedContent) => {
+    const commentSave = (comments) => {
+      return comments.map((comment) => {
+        if (comment._id === commentId) {
+          console.log("test");
+          return { ...comment, content: editedContent, isEditing: false };
+        }
+        if (comment.replies && comment.replies.length > 0) {
+          const updatedReplies = commentSave(comment.replies);
+          return {
+            ...comment,
+            replies: updatedReplies,
+          };
+        }
+        return comment;
+      });
+    };
+
+    const updatedCommentList = commentSave(updatedComments);
+
+    setUpdatedComments(updatedCommentList);
+
+    try {
+      await axios.put(`/forum/${_id}/comments/${commentId}`, {
+        content: editedContent,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleCommentCancel = async (commentId) => {
+    const commentCancel = (comments) => {
+      return comments.map((comment) => {
+        if (comment._id === commentId) {
+          return {
+            ...comment,
+            isEditing: false,
+            content: comment.originalContent,
+          };
+        }
+        if (comment.replies && comment.replies.length > 0) {
+          const updatedReplies = commentCancel(comment.replies);
+          return {
+            ...comment,
+            replies: updatedReplies,
+          };
+        }
+        return comment;
+      });
+    };
+
+    const updatedCommentList = commentCancel(updatedComments);
+
+    setUpdatedComments(updatedCommentList);
+  };
+
+  const renderComment = (comment, index, nestingLevel = 0, commentId) => {
     const isReply = nestingLevel > 0;
     const commentClass = isReply ? "reply-comment" : "main-comment";
     const replyClass = nestingLevel % 2 === 0 ? "reply-even" : "reply-odd";
+
+    const handleInputChange = (event, commentId) => {
+      const updatedContent = event.target.value;
+      const inputChange = (comments) => {
+        return comments.map((comment) => {
+          if (comment._id === commentId) {
+            console.log("test");
+            return { ...comment, content: updatedContent };
+          }
+          if (comment.replies && comment.replies.length > 0) {
+            const updatedReplies = inputChange(comment.replies);
+            return {
+              ...comment,
+              replies: updatedReplies,
+            };
+          }
+          return comment;
+        });
+      };
+
+      const updatedCommentList = inputChange(updatedComments);
+
+      setUpdatedComments(updatedCommentList);
+    };
+
+    const handleSaveClick = () => {
+      handleCommentSave(comment._id, comment.content);
+    };
+
+    const handleCancelClick = () => {
+      handleCommentCancel(comment._id);
+    };
 
     return (
       <li
         key={comment._id}
         className={`comment ${commentClass} ${isReply ? replyClass : ""}`}
       >
-        <span className="comment-author">
-          <Link
-            to={`/profile/${comment.author}`}
-            onClick={() => setProfileId(comment.author)}
-          >
-            {comment.author}
-          </Link>
-        </span>
+        <div className="top">
+          <div className="comment-author-date-container">
+            <span className="comment-author">
+              <Link
+                to={`/profile/${comment.author}`}
+                onClick={() => setProfileId(comment.author)}
+              >
+                {comment.author}
+              </Link>
+            </span>
 
-        <span className="comment-date">{comment.date}</span>
-        {auth.isAuthenticated && comment.author === auth.username && (
-          <button
-            className="delete-comment-btn"
-            onClick={() => handleCommentDelete(comment._id)}
-          >
-            Delete Comment
-            <FontAwesomeIcon icon={faTrash} className="trash-icon" />
-          </button>
+            <span className="comment-date">{comment.date}</span>
+          </div>
+          {auth.isAuthenticated && comment.author === auth.username && (
+            <div className="edit-delete-container">
+              <button
+                className="edit-comment-btn"
+                onClick={() => handleCommentEdit(comment._id)}
+              >
+                Edit
+                <FontAwesomeIcon icon={faEdit} className="edit-icon" />
+              </button>
+              <button
+                className="delete-comment-btn"
+                onClick={() => handleCommentDelete(comment._id)}
+              >
+                Delete
+                <FontAwesomeIcon icon={faTrash} className="trash-icon" />
+              </button>
+            </div>
+          )}
+        </div>
+        {comment.isEditing ? (
+          <div>
+            <textarea
+              value={comment.content}
+              onChange={(event) => handleInputChange(event, comment._id)}
+            />
+            <button onClick={handleSaveClick}>Save</button>
+            <button onClick={handleCancelClick}>Cancel</button>
+          </div>
+        ) : (
+          <p className="comment-content">{comment.content}</p>
         )}
-        <p className="comment-content">{comment.content}</p>
         <button
           className="reply-comment-btn"
           onClick={() => handleReply(comment._id)}
@@ -99,12 +248,14 @@ const Thread = () => {
   const handleCommentDelete = async (commentId) => {
     const deleteComment = (comments) => {
       return comments.map((comment) => {
-        if (comment._id === commentId && comment.author === auth.username) {
-          return {
-            ...comment,
-            author: "", // Set author to empty
-            content: "Comment was deleted", // Update content
-          };
+        if (comment._id === commentId) {
+          if (comment.author === auth.username) {
+            return {
+              ...comment,
+              author: "",
+              content: "Comment was deleted",
+            };
+          }
         }
 
         if (comment.replies && comment.replies.length > 0) {
@@ -122,10 +273,7 @@ const Thread = () => {
     const updatedCommentList = deleteComment(updatedComments);
 
     try {
-      await axios.delete(
-        `http://127.0.0.1:5000/forum/${_id}/comments/${commentId}`
-      );
-
+      await axios.delete(`/forum/${_id}/comments/${commentId}`);
       setUpdatedComments(updatedCommentList);
     } catch (error) {
       console.error(error);
@@ -149,7 +297,7 @@ const Thread = () => {
     try {
       const response = await axios.get(`/forum/${_id}`);
       setUpdatedComments(response.data.comments);
-      setProfileId(response.data.profileId); // Update profileId here
+      setProfileId(response.data.profileId);
     } catch (error) {
       console.error(error);
     }
@@ -158,8 +306,6 @@ const Thread = () => {
   useEffect(() => {
     fetchComments();
   }, [_id]);
-
-  console.log(updatedComments);
 
   return (
     <div className="individual-thread">
@@ -195,13 +341,15 @@ const Thread = () => {
         <CreateComment threadId={_id} onCommentSubmit={handleCommentSubmit} />
       )}
       <div className="thread-comments">
-        <h4>Comments ({updatedComments.length})</h4>
-        {updatedComments.length > 0 ? (
-          <ul>
-            {updatedComments.map((comment, index) =>
-              renderComment(comment, index)
-            )}
-          </ul>
+        {updatedComments?.length > 0 ? (
+          <>
+            <h4>Comments ({updatedComments.length})</h4>
+            <ul>
+              {updatedComments.map((comment, index) =>
+                renderComment(comment, index)
+              )}
+            </ul>
+          </>
         ) : (
           <p>No comments yet.</p>
         )}

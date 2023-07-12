@@ -1,12 +1,9 @@
-import React, { useState, useContext } from "react";
-import { AuthContext } from "./AuthContext";
+import React, { useState } from "react";
 import axios from "axios";
 import getFormattedDate from "../utility/formattedDate";
 
 const CreateComment = ({ onCommentSubmit, threadId }) => {
   const [content, setContent] = useState("");
-
-  const auth = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,27 +14,22 @@ const CreateComment = ({ onCommentSubmit, threadId }) => {
     }
 
     const newComment = {
-      author: auth.username,
       content,
       date: getFormattedDate(),
     };
 
     try {
       const response = await axios.post(
-        `http://127.0.0.1:5000/forum/${threadId}/comments`,
+        `/forum/${threadId}/comments`,
         newComment
       );
 
-      console.log(response);
-
-      if (response.status !== 201) {
+      if (response.status === 201) {
+        onCommentSubmit(response.data.comments);
+        setContent("");
+      } else {
         throw new Error("Failed to create comment");
       }
-
-      onCommentSubmit(response.data.comments);
-
-      // Clear input fields
-      setContent("");
     } catch (error) {
       console.error(error);
       alert("An error occurred while creating the comment");

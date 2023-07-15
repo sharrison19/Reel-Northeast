@@ -52,7 +52,6 @@ const Profile = ({ onEditProfile, profilePicture = "", isEditable = true }) => {
         response = await axios.get("/user-profile");
       }
       const profileData = response.data;
-      console.log(profileData);
       setEditableProperties(profileData);
     } catch (error) {
       auth.setError("Error fetching profile data");
@@ -105,7 +104,6 @@ const Profile = ({ onEditProfile, profilePicture = "", isEditable = true }) => {
 
     try {
       const response = await axios.put(`/user-profile`, editableProperties);
-      console.log(response.data);
     } catch (error) {
       console.error("Error updating profile:", error);
     }

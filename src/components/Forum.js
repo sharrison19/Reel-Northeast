@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import CreateThread from "./CreateThread";
 import { useNavigate } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import axios from "axios";
+import { AuthContext } from "./AuthContext";
 
 const Forum = () => {
   const navigate = useNavigate();
@@ -37,6 +38,8 @@ const Forum = () => {
     "Surf Casting Fishing",
     "Trout Fishing",
   ];
+
+  const { isAuthenticated } = useContext(AuthContext);
 
   const handleThreadSubmit = (newThread) => {
     setThreads([...threads, newThread]);
@@ -183,11 +186,13 @@ const Forum = () => {
             />
             <BsSearch className="search-icon" onClick={handleSearch} />
           </div>
-          <div className="thread-btn-container">
-            <button className="create-a-thread-btn" onClick={handleOpenModal}>
-              Create a Thread
-            </button>
-          </div>
+          {isAuthenticated && (
+            <div className="thread-btn-container">
+              <button className="create-a-thread-btn" onClick={handleOpenModal}>
+                Create a Thread
+              </button>
+            </div>
+          )}
           {isModalOpen && (
             <CreateThread
               onThreadSubmit={handleThreadSubmit}
@@ -198,11 +203,13 @@ const Forum = () => {
         </div>
       ) : (
         <div className="top-row">
-          <div className="thread-btn-container">
-            <button className="create-a-thread-btn" onClick={handleOpenModal}>
-              Create a Thread
-            </button>
-          </div>
+          {isAuthenticated && (
+            <div className="thread-btn-container">
+              <button className="create-a-thread-btn" onClick={handleOpenModal}>
+                Create a Thread
+              </button>
+            </div>
+          )}
           {isModalOpen && (
             <CreateThread
               onThreadSubmit={handleThreadSubmit}

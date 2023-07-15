@@ -28,6 +28,7 @@ const Thread = () => {
   const [updatedComments, setUpdatedComments] = useState([]);
   const [activeReplyComment, setActiveReplyComment] = useState("");
   const [showCommentForm, setShowCommentForm] = useState(false);
+  const [commentsTotal, setCommentsTotal] = useState(0);
 
   const handleCommentSubmit = (newComments) => {
     if (newComments) {
@@ -79,7 +80,6 @@ const Thread = () => {
     const commentSave = (comments) => {
       return comments.map((comment) => {
         if (comment._id === commentId) {
-          console.log("test");
           return { ...comment, content: editedContent, isEditing: false };
         }
         if (comment.replies && comment.replies.length > 0) {
@@ -142,7 +142,6 @@ const Thread = () => {
       const inputChange = (comments) => {
         return comments.map((comment) => {
           if (comment._id === commentId) {
-            console.log("test");
             return { ...comment, content: updatedContent };
           }
           if (comment.replies && comment.replies.length > 0) {
@@ -209,22 +208,29 @@ const Thread = () => {
         {comment.isEditing ? (
           <div>
             <textarea
+              className="edit-text-area"
               value={comment.content}
               onChange={(event) => handleInputChange(event, comment._id)}
             />
-            <button onClick={handleSaveClick}>Save</button>
-            <button onClick={handleCancelClick}>Cancel</button>
+            <button className="edit-save-btn" onClick={handleSaveClick}>
+              Save
+            </button>
+            <button className="edit-cancel-btn" onClick={handleCancelClick}>
+              Cancel
+            </button>
           </div>
         ) : (
           <p className="comment-content">{comment.content}</p>
         )}
-        <button
-          className="reply-comment-btn"
-          onClick={() => handleReply(comment._id)}
-        >
-          <FontAwesomeIcon icon={faReply} className="reply-icon" />
-          Reply
-        </button>
+        {auth.isAuthenticated && (
+          <button
+            className="reply-comment-btn"
+            onClick={() => handleReply(comment._id)}
+          >
+            <FontAwesomeIcon icon={faReply} className="reply-icon" />
+            Reply
+          </button>
+        )}
 
         {activeReplyComment === comment._id && (
           <ReplyComment
@@ -298,6 +304,7 @@ const Thread = () => {
       const response = await axios.get(`/forum/${_id}`);
       setUpdatedComments(response.data.comments);
       setProfileId(response.data.profileId);
+      setCommentsTotal(response.data.totalComments);
     } catch (error) {
       console.error(error);
     }
@@ -325,7 +332,7 @@ const Thread = () => {
         </div>
         <div className="thread-stats">
           <span className="thread-total-comments">
-            Total Comments: {totalComments}
+            Total Comments: {commentsTotal}
           </span>
           <span className="thread-total-views">Total Views: {totalViews}</span>
         </div>
@@ -343,7 +350,7 @@ const Thread = () => {
       <div className="thread-comments">
         {updatedComments?.length > 0 ? (
           <>
-            <h4>Comments ({updatedComments.length})</h4>
+            <h4>Comments ({commentsTotal})</h4>
             <ul>
               {updatedComments.map((comment, index) =>
                 renderComment(comment, index)

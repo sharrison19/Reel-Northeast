@@ -27,8 +27,6 @@ const ReplyComment = ({ threadId, parentCommentId, onCommentSubmit }) => {
         newReplyComment
       );
 
-      console.log(response);
-
       if (response.status !== 201) {
         throw new Error("Failed to create reply comment");
       }
@@ -50,7 +48,6 @@ const ReplyComment = ({ threadId, parentCommentId, onCommentSubmit }) => {
   return (
     <div id="reply-comment-container">
       <form className="reply-comment-form" onSubmit={handleSubmit}>
-        <h4 className="reply-comment-header">Reply to Comment</h4>
         <div className="reply-comment-form-group">
           <textarea
             className="reply-comment-content"

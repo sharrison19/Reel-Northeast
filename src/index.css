@@ -142,22 +142,93 @@ nav {
   color: #ffffff;
 }
 
+/* Hamburger Menu */
+
+.hamburger-menu {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.hamburger-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  color: #c6c5c5;
+}
+
+.hamburger-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: #c6c5c5;
+  transition: fill 0.3s ease;
+}
+
+.hamburger-icon:hover svg {
+  fill: #ffffff;
+}
+
+.hamburger-content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 50%;
+  background-color: #003e93;
+  padding: 10px;
+  display: none;
+  z-index: 11;
+  white-space: nowrap;
+}
+
+.hamburger-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.hamburger-nav-item {
+  margin-bottom: 10px;
+}
+
+.hamburger-nav-item:last-child {
+  margin-bottom: 0;
+}
+
+.hamburger-nav-item a {
+  color: #c6c5c5;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease-in-out;
+  display: block;
+  padding: 5px 0;
+}
+
+.hamburger-nav-item a:hover {
+  color: #ffffff;
+}
+
+.hamburger-menu input[type="checkbox"] {
+  display: none;
+}
+
+.hamburger-menu input[type="checkbox"]:checked ~ .hamburger-content {
+  display: block;
+}
+
+.hamburger-menu .hamburger-content.open {
+  left: -5px;
+  margin-top: 5px;
+}
+
 /* Media Queries */
 
-@media (max-width: 300px) {
-  .nav-container {
-    font-size: 13px;
-  }
-}
-/* Small screens (up to 576px) */
 @media (max-width: 576px) {
   .nav-container {
     flex-direction: column;
     align-items: stretch;
-  }
-
-  .nav-item-home {
-    display: none;
   }
 
   .nav-item {
@@ -166,12 +237,6 @@ nav {
 
   .auth-nav-list .nav-item {
     margin-left: 0;
-  }
-}
-
-@media (max-width: 510px) {
-  .nav-item {
-    margin: 0 15px !important;
   }
 }
 
@@ -185,14 +250,12 @@ nav {
   }
 }
 
-/* Medium screens (up to 768px) */
 @media (max-width: 768px) {
   .nav-item {
     margin: 0 20px;
   }
 }
 
-/* Large screens (up to 992px) */
 @media (max-width: 992px) {
   .nav-item {
     margin: 0 30px;
@@ -266,9 +329,10 @@ nav {
   margin: 0;
   width: 100%;
   height: 500px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
   text-transform: uppercase;
   letter-spacing: 2px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 .home-para-one {
@@ -784,14 +848,6 @@ nav {
   border-radius: 5px;
 }
 
-.trash-icon {
-  margin-left: 5px;
-}
-
-.edit-icon {
-  margin-left: 5px;
-}
-
 .delete-comment-btn:hover {
   background-color: #ff0000;
 }
@@ -826,7 +882,7 @@ nav {
 }
 
 .edit-text-area {
-  width: 40%;
+  width: 500px;
   margin: auto;
   padding: 10px;
   border: 1px solid #ddd;
@@ -2011,7 +2067,7 @@ nav {
 }
 
 .create-comment-content {
-  width: 40%;
+  width: 500px;
   margin: auto;
   padding: 10px;
   border: 1px solid #ddd;
@@ -2033,6 +2089,42 @@ nav {
   background-color: #0059b3;
 }
 
+.edit-comment-buttons {
+  margin: 10px 0 20px 0;
+}
+
+@media (max-width: 900px) {
+  .edit-comment-buttons {
+    display: block;
+  }
+  .edit-save-btn {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 700px) {
+  .create-comment-content,
+  .reply-comment-content,
+  .edit-text-area {
+    width: calc(100% - 30px) !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media (max-width: 400px) {
+  .edit-comment-btn,
+  .delete-comment-btn {
+    padding: 4px 8px;
+  }
+
+  .comment-date {
+    display: block;
+    margin-left: 0;
+  }
+}
+
 /*Create Comment End */
 
 /* Reply Comment Start */
@@ -2046,7 +2138,7 @@ nav {
 }
 
 .reply-comment-content {
-  width: 40%;
+  width: 500px;
   margin: auto;
   padding: 10px;
   border: 1px solid #ddd;

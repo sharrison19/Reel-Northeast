@@ -192,14 +192,12 @@ const Thread = () => {
                 className="edit-comment-btn"
                 onClick={() => handleCommentEdit(comment._id)}
               >
-                Edit
                 <FontAwesomeIcon icon={faEdit} className="edit-icon" />
               </button>
               <button
                 className="delete-comment-btn"
                 onClick={() => handleCommentDelete(comment._id)}
               >
-                Delete
                 <FontAwesomeIcon icon={faTrash} className="trash-icon" />
               </button>
             </div>
@@ -212,12 +210,14 @@ const Thread = () => {
               value={comment.content}
               onChange={(event) => handleInputChange(event, comment._id)}
             />
-            <button className="edit-save-btn" onClick={handleSaveClick}>
-              Save
-            </button>
-            <button className="edit-cancel-btn" onClick={handleCancelClick}>
-              Cancel
-            </button>
+            <div className="edit-comment-buttons">
+              <button className="edit-save-btn" onClick={handleSaveClick}>
+                Save
+              </button>
+              <button className="edit-cancel-btn" onClick={handleCancelClick}>
+                Cancel
+              </button>
+            </div>
           </div>
         ) : (
           <p className="comment-content">{comment.content}</p>

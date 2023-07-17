@@ -5,6 +5,7 @@ import { AuthContext } from "./AuthContext";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loginStatus, setLoginStatus] = useState(null);
   const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
 
@@ -37,19 +38,23 @@ const Login = () => {
     event.preventDefault();
 
     try {
-      auth.handleAuthentication({ username, password });
+      const success = await auth.handleAuthentication({ username, password });
 
-      if (rememberMe) {
-        localStorage.setItem("rememberedUsername", username);
-        localStorage.setItem("rememberedPassword", password);
+      if (success) {
+        if (rememberMe) {
+          localStorage.setItem("rememberedUsername", username);
+          localStorage.setItem("rememberedPassword", password);
+        } else {
+          localStorage.removeItem("rememberedUsername");
+          localStorage.removeItem("rememberedPassword");
+        }
+
+        navigate("/forum");
       } else {
-        localStorage.removeItem("rememberedUsername");
-        localStorage.removeItem("rememberedPassword");
+        setLoginStatus(false);
       }
-
-      navigate("/forum");
     } catch (err) {
-      console.error(err);
+      console.error("Error during login:", err);
     }
   };
 

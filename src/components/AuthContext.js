@@ -34,7 +34,6 @@ export const AuthProvider = ({ children }) => {
       return response;
     },
     (error) => {
-      console.log(error);
       if (error.response.status === 401 || error.response.status === 400) {
         setError(error.response.data.message);
       }
@@ -58,12 +57,14 @@ export const AuthProvider = ({ children }) => {
         axios.defaults.headers.common[
           "Authorization"
         ] = `Bearer ${response.data.token}`;
+        return true;
       } else {
         setIsAuthenticated(false);
         setUsername("");
         setToken(null);
         localStorage.setItem("token", null);
         localStorage.setItem("username", null);
+        return false;
       }
     } catch (error) {
       console.error("Authentication failed:", error);
@@ -73,6 +74,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("token", null);
       localStorage.setItem("username", null);
       setError("Authentication failed. Please try again.");
+      return false;
     } finally {
       setLoading(false);
     }
@@ -84,7 +86,6 @@ export const AuthProvider = ({ children }) => {
 
     try {
       const response = await axios.post("/signup", userCredentials);
-      console.log(response);
 
       if (response.status === 201 && response.data.token) {
         setIsAuthenticated(true);

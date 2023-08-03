@@ -49,7 +49,7 @@ const State = ({ states }) => {
       {recentThreads.length === 0 ? (
         <p className="no-threads-message">
           No threads match your search criteria. Be the first one to start a
-          conversation about {state.name}
+          conversation about {state.name}!
         </p>
       ) : (
         <ul className="state-thread-list">

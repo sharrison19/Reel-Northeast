@@ -199,6 +199,9 @@ const Profile = ({ onEditProfile, profilePicture = "", isEditable = true }) => {
                     value={editableProperties.state}
                     onChange={handleInputChange}
                   >
+                    <option disabled value="">
+                      Select a state
+                    </option>
                     <option value="Connecticut">Connecticut</option>
                     <option value="Maine">Maine</option>
                     <option value="Massachusetts">Massachusetts</option>
@@ -225,10 +228,15 @@ const Profile = ({ onEditProfile, profilePicture = "", isEditable = true }) => {
                     name="biography"
                     value={editableProperties.biography}
                     onChange={handleInputChange}
+                    placeholder="Write your biography here..."
                   />
                 </div>
               ) : (
-                editableProperties.biography
+                <div className="biography-placeholder">
+                  {editableProperties.biography
+                    ? editableProperties.biography
+                    : "Welcome to your profile! Click 'Edit Profile' to begin building your Reel Northeast profile!"}
+                </div>
               )}
             </div>
             <p>Follow me:</p>

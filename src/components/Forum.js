@@ -31,10 +31,10 @@ const Forum = () => {
     "Fishing Reports",
     "Fishing Tips and Tricks",
     "Fly Fishing",
-    "Freshwater Fishing",
+    "Freshwater",
     "Ice Fishing",
     "Kayak Fishing",
-    "Saltwater Fishing",
+    "Saltwater",
     "Surf Casting Fishing",
     "Trout Fishing",
   ];
